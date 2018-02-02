@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane prefHeight="806.0" prefWidth="199.0" style="-fx-background-color: #288888;" />
+      <TabPane layoutX="199.0" prefHeight="806.0" prefWidth="1301.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="100.0" tabMinWidth="200.0">
+        <tabs>
+          <Tab closable="false" style="-fx-padding:0;" text="Untitled Tab 1" />
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
