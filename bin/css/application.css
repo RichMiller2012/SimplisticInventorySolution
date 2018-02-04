@@ -1,8 +1,32 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+/* color theme */
+
+* {
+	-primary : #154848;
+	-secondary : #3ED4D4;
+	-tertiary : #154848;
+	-alternate: #2C9595;
+}
+
 .tab-header-background {
-	-fx-background-color:#003B3B;
+	-fx-background-color:-primary;
 }
 
 .tab {
-	-fx-background-color:#288888;
+	-fx-background-color:-primary;
+	-fx-pref-width: 150;
+	-fx-pref-height: 150;
+}
+
+.tab:hover {
+	-fx-background-color:#3ED4D4
+}
+
+.tab:selected {
+	-fx-background-color:#2C9595
+}
+
+#main-sidebar {
+	-fx-background-color: -primary;
 }
