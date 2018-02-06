@@ -7,14 +7,12 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 
 
 
-public class Inventory extends RecursiveTreeObject<Inventory> {
+public class Inventory {
 
 	private LongProperty id;
 	private StringProperty name;
