@@ -12,7 +12,8 @@
             <Tab text="Inventory">
                <content>
                   <fx:include fx:id="inventoryTable" source="inventory.fxml" />
-               </content></Tab>
+               </content>
+             </Tab>
          </tabs></TabPane>
    </children>
 </AnchorPane>
