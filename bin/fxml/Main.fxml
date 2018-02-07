@@ -4,14 +4,18 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1015.0" prefWidth="1494.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1015.0" prefWidth="1494.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <children>
-      <TabPane layoutX="108.0" layoutY="135.0" prefHeight="1015.0" prefWidth="1494.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane fx:id="mainTabPane" layoutX="108.0" layoutY="135.0" prefHeight="1015.0" prefWidth="1494.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
-            <Tab text="Receiving" />
-            <Tab text="Inventory">
+            <Tab fx:id="receivingTab" onSelectionChanged="#receivingTabSelected" text="Receiving">
+            	<content>
+            		<fx:include fx:id="receiving" source="receiving.fxml" />
+            	</content>
+            </Tab>
+            <Tab fx:id="inventoryTab" text="Inventory">
                <content>
-                  <fx:include fx:id="inventoryTable" source="inventory.fxml" />
+                  <fx:include fx:id="inventory" source="inventory.fxml" />
                </content>
              </Tab>
          </tabs></TabPane>

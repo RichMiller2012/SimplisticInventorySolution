@@ -14,6 +14,8 @@ import service.InventoryService;
 
 public class InventoryController implements Initializable {
 	
+	private MainController main;
+	
 	@FXML
 	private TreeTableView<Inventory> inventoryTreeTable;
 	
@@ -40,6 +42,8 @@ public class InventoryController implements Initializable {
 	
 	@Override
 	public void initialize(URL aurlrg0, ResourceBundle rb) {	
+		
+		//get this from a database
 		ObservableList<TreeItem<Inventory>>	items = InventoryService.createStubInventoryItems();
 		
 		root.getChildren().setAll(items);
@@ -52,9 +56,11 @@ public class InventoryController implements Initializable {
 		retailPrice.setCellValueFactory(rp -> rp.getValue().getValue().getRetailPrice().asObject());
 		
 		inventoryTreeTable.setRoot(root);
-		inventoryTreeTable.setShowRoot(false);
-		
-		
+		inventoryTreeTable.setShowRoot(false);	
+	}
+	
+	public void init(MainController mainController) {
+		main = mainController;
 	}
 
 }
