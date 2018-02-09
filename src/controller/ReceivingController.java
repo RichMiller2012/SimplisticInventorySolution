@@ -3,7 +3,6 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import dto.Inventory;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +12,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import model.Inventory;
 import service.InventoryService;
 
 public class ReceivingController implements Initializable {
@@ -110,10 +110,5 @@ public class ReceivingController implements Initializable {
 		quantityInput = new Spinner<Number>(1,9999,1);
 		
 		reselected();
-	}
-	
-	
-	
-	
-	
+	}	
 }

@@ -1,9 +1,9 @@
 package service;
 
-import dto.Inventory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
+import model.Inventory;
 
 public class InventoryService {
 	

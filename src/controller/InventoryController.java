@@ -2,7 +2,6 @@ package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import dto.Inventory;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
+import model.Inventory;
 import service.InventoryService;
 
 public class InventoryController implements Initializable {
