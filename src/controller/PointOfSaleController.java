@@ -1,3 +1,5 @@
+package controller;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -42,6 +44,8 @@ public class PointOfSaleController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		ObservableList<TreeItem<Inventory>> sellings = FXCollections.observableArrayList(); 
+		
+		root.getChildren().setAll(sellings);
 		
 		name.setCellValueFactory(nameCol -> nameCol.getValue().getValue().getName());
 		barcode.setCellValueFactory(barcodeCol -> barcodeCol.getValue().getValue().getBarcode());
