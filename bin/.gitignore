@@ -1,0 +1,8 @@
+/controller/
+/dao/
+/entity/
+/model/
+/service/
+/hibernate.cfg.xml
+/hibernate.cfg.out.xml
+/fxml/

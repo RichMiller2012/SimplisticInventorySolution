@@ -12,6 +12,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 
+		JdbcConnector conn = new JdbcConnector();
+		conn.connect();
+		
 		
 		try {
 			

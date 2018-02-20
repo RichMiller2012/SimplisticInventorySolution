@@ -1,46 +1,51 @@
 package service;
 
-import javafx.collections.FXCollections;
+import dao.InventoryDAO;
+import entity.InventoryTO;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 import model.Inventory;
 
 public class InventoryService {
 	
-	static ObservableList<TreeItem<Inventory>> inventory = FXCollections.observableArrayList();
-
-	public static ObservableList<TreeItem<Inventory>> createStubInventoryItems(){
-			
-		inventory.add(new TreeItem<>(new Inventory(1, "Cigaretts", "1234", 80, 2.00, 6.00)));
-		inventory.add(new TreeItem<>(new Inventory(2, "Lighter", "55555", 20, 1.00, 2.67)));
-		inventory.add(new TreeItem<>(new Inventory(3, "Peanuts", "0909090", 50, .60, .99)));
-		inventory.add(new TreeItem<>(new Inventory(1, "Cigaretts", "1234", 80, 2.00, 6.00)));
-		inventory.add(new TreeItem<>(new Inventory(2, "Lighter", "55555", 20, 1.00, 2.67)));
-		inventory.add(new TreeItem<>(new Inventory(3, "Peanuts", "0909090", 50, .60, .99)));
-		inventory.add(new TreeItem<>(new Inventory(1, "Cigaretts", "1234", 80, 2.00, 6.00)));
-		inventory.add(new TreeItem<>(new Inventory(2, "Lighter", "55555", 20, 1.00, 2.67)));
-		inventory.add(new TreeItem<>(new Inventory(3, "Peanuts", "0909090", 50, .60, .99)));
-		inventory.add(new TreeItem<>(new Inventory(1, "Cigaretts", "1234", 80, 2.00, 6.00)));
-		inventory.add(new TreeItem<>(new Inventory(2, "Lighter", "55555", 20, 1.00, 2.67)));
-		inventory.add(new TreeItem<>(new Inventory(3, "Peanuts", "0909090", 50, .60, .99)));
-		inventory.add(new TreeItem<>(new Inventory(1, "Cigaretts", "1234", 80, 2.00, 6.00)));
-		inventory.add(new TreeItem<>(new Inventory(2, "Lighter", "55555", 20, 1.00, 2.67)));
-		inventory.add(new TreeItem<>(new Inventory(3, "Peanuts", "0909090", 50, .60, .99)));
-		
-		
-		return inventory;
+	private InventoryDAO dao;
+	
+	public InventoryService() {
+		this.dao = new InventoryDAO();
 	}
 	
-	public static Inventory findItemByBarcode(String barcode) {
-		
-		createStubInventoryItems();
-		
-		for(TreeItem<Inventory> item : inventory) {
-			if(barcode.equals(item.getValue().getBarcode().getValue())) {
-				return item.getValue();
-			}
-		}
-		
-		return null;
+	public ObservableList<TreeItem<Inventory>> fetchInventory(){
+		return dao.getAllInventoryItems();
 	}
+	
+	public void addItem(Inventory item) {
+		
+		dao.saveInventoryItem(
+				new InventoryTO(
+				item.getId().getValue(),
+				item.getName().getValue(),
+				item.getBarcode().getValue(),
+				item.getQuantity().getValue(),
+				item.getWholesalePrice().getValue(),
+				item.getRetailPrice().getValue()
+				));
+	}
+	
+	public void updateItem(Inventory item, int addedQuantity) {
+		
+		dao.updateItem(
+				new InventoryTO(
+				item.getId().getValue(),
+				item.getName().getValue(),
+				item.getBarcode().getValue(),
+				item.getQuantity().getValue() + addedQuantity,
+				item.getWholesalePrice().getValue(),
+				item.getRetailPrice().getValue()
+				));
+	}
+	
+	public Inventory findItemByBarcode(String barcode) {
+		return dao.getItemByBarcode(barcode);
+	}
+	
 }

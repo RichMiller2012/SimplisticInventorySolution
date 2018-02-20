@@ -36,15 +36,16 @@ public class InventoryController implements Initializable {
 	
 	@FXML 
 	private TreeTableColumn<Inventory, Double> retailPrice;
-
 	
+	private InventoryService service = new InventoryService();
+
 	TreeItem<Inventory> root = new TreeItem<>(new Inventory(0, "name", "barcode", 0, 0.0, 0.0));
 	
 	@Override
 	public void initialize(URL aurlrg0, ResourceBundle rb) {	
 		
 		//get this from a database
-		ObservableList<TreeItem<Inventory>>	items = InventoryService.createStubInventoryItems();
+		ObservableList<TreeItem<Inventory>>	items = service.fetchInventory();
 		
 		root.getChildren().setAll(items);
 		

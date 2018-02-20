@@ -22,6 +22,9 @@ public class MainController implements Initializable {
 	
 	@FXML
 	private Tab inventoryTab;
+	
+	@FXML
+	private Tab posTab;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

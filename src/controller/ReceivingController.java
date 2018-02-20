@@ -48,6 +48,8 @@ public class ReceivingController implements Initializable {
 	
 	@FXML
 	private Button itemCancelButton;
+	
+	private InventoryService service = new InventoryService();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -78,7 +80,7 @@ public class ReceivingController implements Initializable {
 			return;
 		} 
 		
-		Inventory selectedItem = InventoryService.findItemByBarcode(barcode);
+		Inventory selectedItem = service.findItemByBarcode(barcode);
 		
 		if(selectedItem == null) {
 			itemNotFoundText.setVisible(true);
@@ -94,6 +96,29 @@ public class ReceivingController implements Initializable {
 			}
 		}
 	}
+	
+	public void addInventoryItem() {
+		
+		Inventory selectedItem = service.findItemByBarcode(barcodeInfo.getText());
+		
+		if(selectedItem != null) {
+			service.updateItem(selectedItem, quantityInput.getValue().intValue());
+		} else {
+			selectedItem = new Inventory(
+					0,
+					itemNameInfo.getText(),
+					barcodeInput.getText(),
+					quantityInput.getValue().intValue(),
+					Double.parseDouble(wholesalePriceInfo.getText()),
+					Double.parseDouble(retailPriceInfo.getText())
+					);
+			service.addItem(selectedItem);
+					
+		}
+		
+		cancelBarcodeEntry();
+	}
+	
 	
 	public void cancelBarcodeEntry() {
 		if(itemNotFoundText.isVisible()) {

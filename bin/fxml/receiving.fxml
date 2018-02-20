@@ -28,7 +28,7 @@
       <TextField fx:id="retailPriceInfo" layoutX="809.0" layoutY="369.0" prefHeight="31.0" prefWidth="105.0" />
       <TextField fx:id="wholesalePriceInfo" layoutX="953.0" layoutY="367.0" prefHeight="31.0" prefWidth="105.0" />
       <Label fx:id="itemNotFoundText" layoutX="72.0" layoutY="224.0" prefHeight="21.0" prefWidth="346.0" style="-fx-text-fill: red;" text="Item does not exist, fill out the form below to add it" />
-      <Button fx:id="itemAddButton" layoutX="869.0" layoutY="479.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="88.0" text="Add" />
+      <Button fx:id="itemAddButton" layoutX="869.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#addInventoryItem" prefHeight="58.0" prefWidth="88.0" text="Add" />
       <Button fx:id="itemCancelButton" layoutX="970.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#cancelBarcodeEntry" prefHeight="58.0" prefWidth="88.0" text="Cancel" />
    </children>
 </AnchorPane>

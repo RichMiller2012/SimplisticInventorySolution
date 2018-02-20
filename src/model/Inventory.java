@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
-
+import entity.InventoryTO;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 
@@ -14,7 +14,7 @@ import javafx.beans.property.IntegerProperty;
 
 public class Inventory {
 
-	private LongProperty id;
+	private IntegerProperty id;
 	private StringProperty name;
 	private StringProperty barcode;
 	private IntegerProperty quantity;
@@ -22,7 +22,7 @@ public class Inventory {
 	private DoubleProperty retailPrice;
 
 	public Inventory(
-			long id,
+			int id,
 			String name,
 			String barcode,
 			int quantity,
@@ -30,7 +30,7 @@ public class Inventory {
 			double retailPrice
 			) {
 		
-		this.id = new SimpleLongProperty(id);
+		this.id = new SimpleIntegerProperty(id);
 		this.name = new SimpleStringProperty(name);
 		this.barcode = new SimpleStringProperty(barcode);
 		this.quantity = new SimpleIntegerProperty(quantity);
@@ -38,11 +38,20 @@ public class Inventory {
 		this.retailPrice = new SimpleDoubleProperty(retailPrice);
 	}
 	
-	public LongProperty getId() {
+	public Inventory(InventoryTO data) {
+		this.id = new SimpleIntegerProperty(data.getId());
+		this.name = new SimpleStringProperty(data.getName());
+		this.barcode = new SimpleStringProperty(data.getBarcode());
+		this.quantity = new SimpleIntegerProperty(data.getQuantity());
+		this.wholesalePrice = new SimpleDoubleProperty(data.getWholesalePrice());
+		this.retailPrice = new SimpleDoubleProperty(data.getRetailPrice());
+	}
+	
+	public IntegerProperty getId() {
 		return id;
 	}
 
-	public void setId(LongProperty id) {
+	public void setId(IntegerProperty id) {
 		this.id = id;
 	}
 
