@@ -3,6 +3,7 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import entity.InventoryTO;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -53,6 +54,8 @@ public class ReceivingController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		
 		itemNotFoundText.setVisible(false);
 		barcodeInput.setDisable(false);
 		quantityInput.getValueFactory().setValue(1);
@@ -70,26 +73,28 @@ public class ReceivingController implements Initializable {
 	
 	@FXML
 	public void barcodeItemEntered(KeyEvent event) {
-		
+			
 		String barcode = "";
 		if(event.getCode() == KeyCode.ENTER) {
 		    barcode = barcodeInput.getText();
+		} else {
+			return;
 		}
 		
 		if(barcode.isEmpty()) {
 			return;
 		} 
-		
-		Inventory selectedItem = service.findItemByBarcode(barcode);
+			
+		InventoryTO selectedItem = service.findItemByBarcode(barcode);
 		
 		if(selectedItem == null) {
 			itemNotFoundText.setVisible(true);
 		} else {
 			barcodeInfo.setText(barcode);
-			itemNameInfo.setText(selectedItem.getName().getValue());
-			currentQuantityInfo.setText(selectedItem.getQuantity().getValue().toString());
-			retailPriceInfo.setText(selectedItem.getRetailPrice().getValue().toString());
-			wholesalePriceInfo.setText(selectedItem.getWholesalePrice().getValue().toString());
+			itemNameInfo.setText(selectedItem.getName());
+			currentQuantityInfo.setText(new Integer(selectedItem.getQuantity()).toString());
+			retailPriceInfo.setText(selectedItem.getRetailPrice().toString());
+			wholesalePriceInfo.setText(selectedItem.getWholesalePrice().toString());
 			
 			if(itemNotFoundText.isVisible()) {
 				itemNotFoundText.setVisible(false);
@@ -99,16 +104,21 @@ public class ReceivingController implements Initializable {
 	
 	public void addInventoryItem() {
 		
-		Inventory selectedItem = service.findItemByBarcode(barcodeInfo.getText());
+		InventoryTO selectedItem = service.findItemByBarcode(barcodeInfo.getText());
+		
+
+
+		quantityInput.increment(0); // won't change value, but will commit editor
+		int q = quantityInput.getValue().intValue();
 		
 		if(selectedItem != null) {
 			service.updateItem(selectedItem, quantityInput.getValue().intValue());
 		} else {
-			selectedItem = new Inventory(
+			selectedItem = new InventoryTO(
 					0,
 					itemNameInfo.getText(),
 					barcodeInput.getText(),
-					quantityInput.getValue().intValue(),
+					q,
 					Double.parseDouble(wholesalePriceInfo.getText()),
 					Double.parseDouble(retailPriceInfo.getText())
 					);

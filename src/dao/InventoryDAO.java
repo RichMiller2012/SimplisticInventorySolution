@@ -8,6 +8,8 @@ import org.hibernate.cfg.Configuration;
 
 import antlr.collections.List;
 import entity.InventoryTO;
+import entity.SoldItemTO;
+import entity.TransactionsTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
@@ -22,6 +24,8 @@ public class InventoryDAO {
 		SessionFactory factory = new Configuration()
 				.configure("hibernate.cfg.xml")
 				.addAnnotatedClass(InventoryTO.class)
+				.addAnnotatedClass(SoldItemTO.class)
+				.addAnnotatedClass(TransactionsTO.class)
 				.buildSessionFactory();
 	
 		
@@ -67,6 +71,23 @@ public class InventoryDAO {
 		return;
 	}
 	
+	public void commitTransaction(TransactionsTO transaction) {
+		try {
+			openSession();
+			session.beginTransaction();
+			
+			session.save(transaction);
+			
+			session.getTransaction().commit();
+			
+		} catch(Exception e) {
+			System.out.println("There was an issue commiting the transaction");
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+	
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	public ObservableList<TreeItem<Inventory>> getAllInventoryItems(){
 		ObservableList<TreeItem<Inventory>> inventory = FXCollections.observableArrayList();
@@ -91,11 +112,11 @@ public class InventoryDAO {
 		return inventory;
 	}
 	
-	public Inventory getItemById(int id) {
-		return null;
+	public InventoryTO getItemById(int id) {
+		return session.get(InventoryTO.class, id);
 	}
 	
-	public Inventory getItemByBarcode(String barcode) {
+	public InventoryTO getItemByBarcode(String barcode) {
 		
 		InventoryTO queriedItem = null;
 		try {
@@ -105,17 +126,11 @@ public class InventoryDAO {
 			session.getTransaction().commit();
 		} catch(Exception e) {
 			System.out.println("There was an issue querying by barcode or the item does not exist");
-			e.printStackTrace();
 		} finally {
 			session.close();
 		}
 		
-		Inventory item = null;
-		if(queriedItem != null) {
-			item = new Inventory(queriedItem);
-		}
-		
-		return item;
+		return queriedItem;
 	}
 	
 	private void openSession() {

@@ -13,12 +13,12 @@
             		<fx:include fx:id="receiving" source="receiving.fxml" />
             	</content>
             </Tab>
-            <Tab fx:id="inventoryTab" text="Inventory">
+            <Tab fx:id="inventoryTab" onSelectionChanged="#inventoryTabSelected" text="Inventory">
                <content>
                   <fx:include fx:id="inventory" source="inventory.fxml" />
                </content>
             </Tab>
-            <Tab fx:id="posTab" text="Point Of Sale" >
+            <Tab fx:id="posTab" text="Point Of Sale">
                <content>
              	  <fx:include fx:id="pointOfSale" source="pointOfSale.fxml" />
                </content>

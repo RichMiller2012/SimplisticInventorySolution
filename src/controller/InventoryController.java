@@ -42,8 +42,15 @@ public class InventoryController implements Initializable {
 	TreeItem<Inventory> root = new TreeItem<>(new Inventory(0, "name", "barcode", 0, 0.0, 0.0));
 	
 	@Override
-	public void initialize(URL aurlrg0, ResourceBundle rb) {	
-		
+	public void initialize(URL aurlrg0, ResourceBundle rb) {		
+		initColumns();
+	}
+	
+	public void init(MainController mainController) {
+		main = mainController;
+	}
+	
+	public void initColumns() {
 		//get this from a database
 		ObservableList<TreeItem<Inventory>>	items = service.fetchInventory();
 		
@@ -58,10 +65,6 @@ public class InventoryController implements Initializable {
 		
 		inventoryTreeTable.setRoot(root);
 		inventoryTreeTable.setShowRoot(false);	
-	}
-	
-	public void init(MainController mainController) {
-		main = mainController;
 	}
 
 }

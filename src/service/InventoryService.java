@@ -2,6 +2,7 @@ package service;
 
 import dao.InventoryDAO;
 import entity.InventoryTO;
+import entity.TransactionsTO;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 import model.Inventory;
@@ -18,34 +19,19 @@ public class InventoryService {
 		return dao.getAllInventoryItems();
 	}
 	
-	public void addItem(Inventory item) {
-		
-		dao.saveInventoryItem(
-				new InventoryTO(
-				item.getId().getValue(),
-				item.getName().getValue(),
-				item.getBarcode().getValue(),
-				item.getQuantity().getValue(),
-				item.getWholesalePrice().getValue(),
-				item.getRetailPrice().getValue()
-				));
+	public void addItem(InventoryTO item) {		
+		dao.saveInventoryItem(item);
 	}
 	
-	public void updateItem(Inventory item, int addedQuantity) {
-		
-		dao.updateItem(
-				new InventoryTO(
-				item.getId().getValue(),
-				item.getName().getValue(),
-				item.getBarcode().getValue(),
-				item.getQuantity().getValue() + addedQuantity,
-				item.getWholesalePrice().getValue(),
-				item.getRetailPrice().getValue()
-				));
+	public void updateItem(InventoryTO item, int addedQuantity) {
+			dao.updateItem(item);
 	}
 	
-	public Inventory findItemByBarcode(String barcode) {
+	public InventoryTO findItemByBarcode(String barcode) {
 		return dao.getItemByBarcode(barcode);
 	}
 	
+	public void commitTransaction(TransactionsTO transaction) {
+		dao.commitTransaction(transaction);
+	}
 }

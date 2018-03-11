@@ -19,9 +19,9 @@
                </children>
             </AnchorPane>
             <TreeTableView fx:id="posTable" prefHeight="556.0" prefWidth="738.0">
-               <columns>
-                  <TreeTableColumn fx:id="name" prefWidth="150.0" text="Barcode" />
-                  <TreeTableColumn fx:id="barcode" prefWidth="475.0" text="Name" />
+               <columns>          
+                  <TreeTableColumn fx:id="name" prefWidth="483.0" text="Name" />
+                  <TreeTableColumn fx:id="barcode" prefWidth="142.0" text="Barcode" />
                   <TreeTableColumn fx:id="retailPrice" prefWidth="111.0" text="Price" />
                </columns></TreeTableView>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -31,7 +31,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="transactionButton" mnemonicParsing="false" prefHeight="48.0" prefWidth="316.0" text="Transact" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                  <Button fx:id="transactionButton" mnemonicParsing="false" onMouseClicked="#commitTransaction" prefHeight="48.0" prefWidth="316.0" text="Transact" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
                </children>
             </AnchorPane>
          </children>

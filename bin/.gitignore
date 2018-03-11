@@ -1,2 +1,10 @@
+/application/
+/dao/
+/entity/
+/hibernate.cfg.out.out.xml
+/hibernate.cfg.out.xml
 /controller/
 /fxml/
+/service/
+/hibernate.cfg.out.out.out.xml
+/hibernate.cfg.out.out.out.out.xml

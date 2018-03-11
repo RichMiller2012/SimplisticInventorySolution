@@ -2,11 +2,12 @@ package entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="inventory")
 public class InventoryTO {
 
 	
@@ -24,7 +25,7 @@ public class InventoryTO {
 	}
 
 	@Id
-	@Column(name="id")
+	@GeneratedValue
 	private int id;
 	
 	@Column
@@ -36,10 +37,10 @@ public class InventoryTO {
 	@Column
 	private int quantity;
 	
-	@Column(name="wholesale_price")
+	@Column
 	private Double wholesalePrice;
 	
-	@Column(name="retail_price")
+	@Column
 	private Double retailPrice;
 
 	public int getId() {
@@ -90,9 +91,9 @@ public class InventoryTO {
 		this.retailPrice = retailPrice;
 	}
 	
-	@Override
-	public String toString() {
-		return "InventoryTO [id=" + id + ", name=" + name + ", barcode=" + barcode + ", quantity=" + quantity
-				+ ", wholesalePrice=" + wholesalePrice + ", retailPrice=" + retailPrice + "]";
+	public void decrementQuantity() {
+		if(quantity >= 0) {
+			quantity--;
+		}
 	}
 }

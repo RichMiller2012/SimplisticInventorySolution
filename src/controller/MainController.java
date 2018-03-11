@@ -34,7 +34,15 @@ public class MainController implements Initializable {
 	
 	public void receivingTabSelected() {
 		if(receivingTab.isSelected()) {
+			System.out.println("Receiving Tab Selected");
 			receivingController.reselected();
+		}
+	}
+	
+	public void inventoryTabSelected() {
+		if(inventoryTab.isSelected()) {
+			System.out.println("Inventory Tab Selected");
+			inventoryController.initColumns();
 		}
 	}
 	
