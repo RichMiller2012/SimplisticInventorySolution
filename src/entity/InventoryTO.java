@@ -13,7 +13,16 @@ public class InventoryTO {
 	
 	public InventoryTO() {
 		
-	}	
+	}
+	
+	public InventoryTO(InventoryTO item) {
+		this.id = item.id;
+		this.name = item.name;
+		this.barcode = item.barcode;
+		this.quantity  = item.quantity;
+		this.wholesalePrice = item.wholesalePrice;
+		this.retailPrice = item.retailPrice;
+	}
 	
 	public InventoryTO(int id, String name, String barcode, int quantity, Double wholesalePrice, Double retailPrice) {
 		this.id = id;
@@ -25,7 +34,7 @@ public class InventoryTO {
 	}
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column
@@ -95,5 +104,42 @@ public class InventoryTO {
 		if(quantity >= 0) {
 			quantity--;
 		}
+	}
+	
+	public void reduceQuantityBy(int amount) {
+		if(quantity > amount) {
+			quantity -= amount;
+		} else {
+			quantity = 0;
+		}
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if(other == null) {
+			return false;
+		}
+		
+		if(!(other instanceof InventoryTO)) {
+			return false;
+		}
+		
+		InventoryTO item = (InventoryTO)other;
+		
+		boolean equals = item.id == this.id 
+				&& item.barcode.equals(this.barcode)
+				&& item.name.equals(this.name);
+		
+		return equals;
+	}
+	
+	@Override
+	public int hashCode() {
+		int hash = 3;
+		hash = 53 * hash + this.id;
+		hash = 53 * hash + (this.barcode != null ? this.barcode.hashCode() : 0);
+		hash = 53 * hash + (this.name != null ? this.name.hashCode() : 0);
+		
+		return hash;
 	}
 }

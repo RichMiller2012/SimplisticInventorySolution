@@ -8,11 +8,11 @@
 
         <!-- JDBC Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/sis</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/sis?createDatabaseIfNotExist=true</property>
         <property name="connection.username">sisuser</property>
         <property name="connection.password">sisuser</property>
 
-        <property name="hibernate.hbm2ddl.auto">validate</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
 
         <!-- JDBC connection pool settings ... using built-in test pool -->
         <property name="connection.pool_size">100</property>

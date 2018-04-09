@@ -4,7 +4,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1015.0" prefWidth="1494.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1015.0" prefWidth="1494.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <children>
       <TabPane fx:id="mainTabPane" layoutX="108.0" layoutY="135.0" prefHeight="1015.0" prefWidth="1494.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
@@ -21,6 +21,11 @@
             <Tab fx:id="posTab" text="Point Of Sale">
                <content>
              	  <fx:include fx:id="pointOfSale" source="pointOfSale.fxml" />
+               </content>
+            </Tab>
+            <Tab fx:id="reportsTab" onSelectionChanged="#reportsTabSelected" text="Reporting">
+               <content>
+             	  <fx:include fx:id="reporting" source="reporting.fxml" />
                </content>
             </Tab>
          </tabs></TabPane>

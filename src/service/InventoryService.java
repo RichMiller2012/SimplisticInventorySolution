@@ -23,9 +23,14 @@ public class InventoryService {
 		dao.saveInventoryItem(item);
 	}
 	
-	public void updateItem(InventoryTO item, int addedQuantity) {
+	public void updateItem(InventoryTO item) {
 			dao.updateItem(item);
 	}
+	
+	public void updateItem(InventoryTO item, int quantity) {
+		item.setQuantity(item.getQuantity() + quantity);
+		dao.updateItem(item);
+}
 	
 	public InventoryTO findItemByBarcode(String barcode) {
 		return dao.getItemByBarcode(barcode);
@@ -34,4 +39,6 @@ public class InventoryService {
 	public void commitTransaction(TransactionsTO transaction) {
 		dao.commitTransaction(transaction);
 	}
+	
+
 }

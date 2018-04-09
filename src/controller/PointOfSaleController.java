@@ -60,7 +60,9 @@ public class PointOfSaleController implements Initializable {
 	private ObservableList<TreeItem<Inventory>> sellings = FXCollections.observableArrayList(); 
 		
 	private Map<InventoryTO, SoldItemTO> inventorySellItemMap = new HashMap();
-
+	
+	private Map<InventoryTO, Integer> inventoryQuantityMap = new HashMap();
+	
 	private Double total = 0.00;
 
 	@Override
@@ -97,7 +99,7 @@ public class PointOfSaleController implements Initializable {
 		} else {
 			root.getChildren().add(new TreeItem<>(new Inventory(selectedItem)));
 			updateTotal(selectedItem.getRetailPrice());
-			updateInventoryMap(selectedItem);
+			updateInventoryMaps(selectedItem);
 		}
 		
 		barcodeInput.setText("");
@@ -109,6 +111,13 @@ public class PointOfSaleController implements Initializable {
 		TransactionsTO transaction = new TransactionsTO();
 		double transactionTotal = 0.00;
 		for(InventoryTO item : inventorySellItemMap.keySet()) {
+			int quantityToReduce = inventoryQuantityMap.get(item);
+				
+			//update the quantity on the item
+			item.reduceQuantityBy(quantityToReduce);
+			inventoryService.updateItem(item);
+			
+			//save the sold item
 			SoldItemTO soldItem = inventorySellItemMap.get(item);
 			soldItem.setSoldItem(item);
 			transaction.getSoldItems().add(inventorySellItemMap.get(item));
@@ -123,25 +132,34 @@ public class PointOfSaleController implements Initializable {
 		
 		//clear the map for the next transaction
 		inventorySellItemMap.clear();
+		inventoryQuantityMap.clear();
 		sellings.clear();
 		initialize(null, null);
 		barcodeInput.requestFocus();
 	}
 	
 	
-	private void updateInventoryMap(InventoryTO item) {
+	private void updateInventoryMaps(InventoryTO item) {
 		
-		item.decrementQuantity();
-		
-		if(inventorySellItemMap.containsKey(item)) {
-			inventorySellItemMap.get(item).incrementQuantity();
-			inventorySellItemMap.put(item, inventorySellItemMap.get(item));
+		if(inventoryQuantityMap.containsKey(item) && inventorySellItemMap.containsKey(item)) {
+			 
+			 //update the quantity to be subtracted from the quantity of the item
+			 Integer currentAmount = inventoryQuantityMap.get(item);
+			 inventoryQuantityMap.put(item, ++currentAmount);	 
+			 
+			 //increment the quantity of the sold item
+			 inventorySellItemMap.get(item).incrementQuantity();			 
 		} else {
+			
+			//create a new sold item and place in map
 			SoldItemTO soldItem = new SoldItemTO();
 			soldItem.setQuantity(1);
 			soldItem.setSoldItem(item);
+			
+			//place items in the maps
 			inventorySellItemMap.put(item, soldItem);
-		}		
+			inventoryQuantityMap.put(item, 1);		
+		}
 	}
 	
 	private void updateTotal(Double added) {

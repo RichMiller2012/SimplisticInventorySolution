@@ -37,7 +37,7 @@ public class SoldItemTO {
 	@Column(name="quantity")
 	private int quantity;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	private TransactionsTO transaction;
 		
 	public TransactionsTO getTransaction() {
