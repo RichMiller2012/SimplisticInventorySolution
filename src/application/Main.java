@@ -4,6 +4,7 @@ import dao.JdbcConnector;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import print.Print;
 import util.Seed;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,7 +17,8 @@ public class Main extends Application {
 
 		JdbcConnector conn = new JdbcConnector();
 		conn.connect();	
-	
+		
+		//Print.printTransaction("Transaction details here");
 	
 		try {
 			

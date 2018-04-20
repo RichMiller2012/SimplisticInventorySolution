@@ -1,5 +1,10 @@
+/bill_system/
+/jasperreports/
+/application/
 /controller/
+/dao/
+/entity/
 /model/
+/print/
 /service/
 /util/
-/fxml/

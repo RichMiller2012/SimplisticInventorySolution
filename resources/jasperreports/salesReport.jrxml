@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="salesReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e6f52247-983a-4d14-86b0-fa1acb1c5eb4">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="quantity" class="java.lang.Integer"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="barcode" class="java.lang.String"/>
+	<field name="wholesalePrice" class="java.lang.Double"/>
+	<field name="retailPrice" class="java.lang.Double"/>
+	<field name="sellDate" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="100" y="20" width="360" height="41" uuid="d92dfc10-72d1-4eeb-9064-b866b18acc7b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[HI-JO STORE SALES REPORT]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement key="" x="0" y="0" width="180" height="20" uuid="e0f10fa5-f25d-4c74-9c45-d101e4bf90e7"/>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="" x="0" y="20" width="180" height="20" uuid="0ecdd0a9-4573-4fd5-8f8d-4ee839f411a0"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="" x="0" y="40" width="180" height="20" uuid="1e80973d-b478-4f49-a188-25e9ccc62de3"/>
+				<textFieldExpression><![CDATA[$F{barcode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="" x="0" y="60" width="180" height="20" uuid="de18d41f-e03e-4070-8280-102923ff128a"/>
+				<textFieldExpression><![CDATA[$F{wholesalePrice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="" x="0" y="80" width="180" height="20" uuid="090ec129-f969-4739-af82-3e01fc6df767"/>
+				<textFieldExpression><![CDATA[$F{retailPrice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="" x="0" y="100" width="180" height="20" uuid="a18d36bb-072a-42a7-88db-848e029eb9e5"/>
+				<textFieldExpression><![CDATA[$F{sellDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

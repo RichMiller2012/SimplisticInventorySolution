@@ -2,6 +2,7 @@ package service;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,7 @@ import entity.SoldItemTO;
 import entity.TransactionsTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.PDFSalesItem;
 import model.SoldItem;
 import util.Months;
 
@@ -73,6 +75,25 @@ public class ReportsService {
 		}
 		
 		return displayList;
+	}
+	
+	public List<PDFSalesItem> flatSellItemTOs(List<SoldItemTO> sellItems){
+		
+		List<PDFSalesItem> salesItems = new ArrayList<>();
+		
+		for(SoldItemTO sellItem : sellItems) {
+			PDFSalesItem saleItem = new PDFSalesItem();
+			saleItem.setQuantity(sellItem.getQuantity());
+			saleItem.setName(sellItem.getSoldItem().getName());
+			saleItem.setBarcode(sellItem.getSoldItem().getBarcode());
+			saleItem.setWholesalePrice(sellItem.getSoldItem().getWholesalePrice());
+			saleItem.setRetailPrice(sellItem.getSoldItem().getRetailPrice());
+			saleItem.setSellDate(sellItem.getTransaction().getSellDate().toString());
+			
+			salesItems.add(saleItem);
+		}
+		
+		return salesItems;
 	}
 	
 	@SuppressWarnings("deprecation")

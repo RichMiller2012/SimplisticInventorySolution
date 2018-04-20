@@ -24,6 +24,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.Inventory;
 import service.InventoryService;
+import service.TransactionPrintUtility;
 
 public class PointOfSaleController implements Initializable {
 
@@ -32,6 +33,8 @@ public class PointOfSaleController implements Initializable {
 	
 	private InventoryService inventoryService = new InventoryService();
 	
+	private TransactionPrintUtility printUtil = new TransactionPrintUtility();
+		
     @FXML
     private TextField barcodeInput;
 	
@@ -128,7 +131,9 @@ public class PointOfSaleController implements Initializable {
 		
 		transaction.setTotal(transactionTotal);
 		
-		inventoryService.commitTransaction(transaction);
+		inventoryService.commitTransaction(transaction);	
+		printUtil.setTransaction(transaction);
+		printUtil.renderPrintReceiptAlert();
 		
 		//clear the map for the next transaction
 		inventorySellItemMap.clear();
