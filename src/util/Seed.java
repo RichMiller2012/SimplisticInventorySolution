@@ -1,22 +1,35 @@
 package util;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dao.InventoryDAO;
 import entity.InventoryTO;
 import entity.SoldItemTO;
 import entity.TransactionsTO;
+import javafx.application.Application;
+import javafx.application.HostServices;
+import javafx.stage.Stage;
+import model.PDFSalesItem;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import print.SalesReportPrint;
 
-public class Seed {
+public class Seed extends Application {
 
-	private static InventoryDAO dao = new InventoryDAO();
+	private  InventoryDAO dao = new InventoryDAO();
 	
-	private static SalesReportPrint pdfPrintService = new SalesReportPrint();
+	private  SalesReportPrint pdfPrintService = new SalesReportPrint();
 	
-	public static void seed() {
+	public  void seed() {
 		
 		List<InventoryTO> seedItems = new ArrayList<>();
 		
@@ -120,7 +133,8 @@ public class Seed {
 		
 		printedSalesItems.add(trans3SellItem1);
 		
-		pdfPrintService.printSalesReport(LocalDate.now(), printedSalesItems);
+		//pdfPrintService.printSalesReport(LocalDate.now(), printedSalesItems);
+		//printSalesReport(printedSalesItems);
 
 		
 		dao.commitTransaction(trans1);
@@ -128,4 +142,65 @@ public class Seed {
 		dao.commitTransaction(trans3);	
 	
 	}
+	
+//	//Saves PDF to a file and renders it in a browser window
+//	private void printSalesReport(List<SoldItemTO> soldItems) {
+//		
+//		//get the path to the compiled jasper template
+//		String jasperFilePath = System.getProperty("user.dir") + "\\resources\\jasperreports\\\\salesReport.jasper";
+//		System.out.println(jasperFilePath);
+//		
+//		//get the path to the save location;
+//		String saveFilePath = Paths.get(System.getProperty("user.dir")).getParent().toString() + "\\test.pdf";
+//		System.out.println(saveFilePath);
+//			
+//		String sourceFileNameJasper = jasperFilePath;
+//		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(flattenSoldItems(soldItems));
+//		
+//		Map<String, Object> parameters = new HashMap<>();
+//		
+//		//generate the PDF and save to the save location
+//		try {
+//			JasperPrint jasperPrint = JasperFillManager.fillReport(sourceFileNameJasper, parameters, dataSource);
+//			JasperExportManager.exportReportToPdfFile(jasperPrint, saveFilePath);
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//				
+//		//display the PDF in the default browser or host service
+//		HostServices hostServices = getHostServices();
+//		hostServices.showDocument(saveFilePath);
+//	}
+	
+	
+	
+//	private static List<PDFSalesItem> flattenSoldItems(List<SoldItemTO> soldItems){
+//		
+//		List<PDFSalesItem> pdfItems = new ArrayList<>();
+//		
+//		for(SoldItemTO soldItem : soldItems) {
+//			PDFSalesItem pdfItem = new PDFSalesItem();
+//			pdfItem.setQuantity(soldItem.getQuantity());
+//			pdfItem.setName(soldItem.getSoldItem().getName());
+//			pdfItem.setBarcode(soldItem.getSoldItem().getBarcode());
+//			pdfItem.setWholesalePrice(soldItem.getSoldItem().getWholesalePrice());
+//			pdfItem.setRetailPrice(soldItem.getSoldItem().getRetailPrice());
+//			pdfItem.setSellDate(soldItem.getTransaction().getSellDate().toString());
+//			
+//			pdfItems.add(pdfItem);	
+//		}
+//		
+//		return pdfItems;
+//	}
+
+
+
+	@Override
+	public void start(Stage arg0) throws Exception {
+		seed();	
+	}
+	
+	
+	
+	
 }

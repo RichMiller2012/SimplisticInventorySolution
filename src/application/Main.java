@@ -30,7 +30,8 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 		
-		Seed.seed();
+		Seed seed = new Seed();
+		seed.seed();
 	}
 	
 	public static void main(String[] args) {

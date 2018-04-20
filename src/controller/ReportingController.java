@@ -31,6 +31,7 @@ import model.Inventory;
 import model.SoldItem;
 import service.ReportsService;
 import util.Months;
+import util.ReportsPrintUtility;
 
 public class ReportingController implements Initializable {
 
@@ -40,6 +41,8 @@ public class ReportingController implements Initializable {
 	
 	private ReportsService reportsService = new ReportsService();
 	
+	private ReportsPrintUtility printUtil = new ReportsPrintUtility();
+	
     @FXML
     private DatePicker datePicker;
 
@@ -48,6 +51,9 @@ public class ReportingController implements Initializable {
 
     @FXML
     private TextArea displayArea;
+    
+    @FXML
+    private Button printButton;
     
     @FXML
     private TableView<SoldItem> reportsTable;
@@ -64,7 +70,11 @@ public class ReportingController implements Initializable {
     @FXML 
     private TableColumn<SoldItem, Double> profit;
     
-	TreeItem<SoldItem> root = new TreeItem<>(new SoldItem());
+	//private TreeItem<SoldItem> root = new TreeItem<>(new SoldItem());
+	
+	private List<SoldItemTO> currentPDFSoldItems = new ArrayList<>();
+	private boolean isDaily = true;
+	private LocalDate selectedDate;
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -91,12 +101,22 @@ public class ReportingController implements Initializable {
 		reportsService.initData();
 	}
 	
-	public void initSoldItemsByDate(LocalDate newValue) {	
-	    ObservableList<SoldItem> allSoldItems = reportsService.getSoldItemsByDate(newValue);
+	public void initSoldItemsByDate(LocalDate thisDate) {	
+	    ObservableList<SoldItem> allSoldItems = reportsService.getSoldItemsByDate(thisDate);
 		System.out.println("Found " + allSoldItems.size() + " Sold Items");
 		
 		reportsTable.getItems().clear();
 		reportsTable.getItems().addAll(allSoldItems);
+		
+		
+		currentPDFSoldItems = reportsService.getPDFItemsByDate(thisDate);
+		isDaily = true;
+		selectedDate = thisDate;
+	}
+	
+	public void printCurrentSoldItems() {	
+		if(currentPDFSoldItems.isEmpty()) return;
+		printUtil.printSalesReport(selectedDate, currentPDFSoldItems, isDaily);
 	}
 	
 	@FXML

@@ -63,6 +63,24 @@ public class ReportsService {
 		return displayList;
 	}
 	
+	public List<SoldItemTO> getPDFItemsByDate(LocalDate date){
+		
+		List<SoldItemTO> pdfSoldItems = new ArrayList<>();
+		
+		for(SoldItemTO soldItem : allSoldItems) {
+			TransactionsTO soldItemTransaction = soldItem.getTransaction();
+			
+			Date thedate = soldItemTransaction.getSellDate();
+			
+			if(dateMatches(thedate, date)) {
+				pdfSoldItems.add(soldItem);
+			}
+		}
+		
+		return pdfSoldItems;
+		
+	}
+	
 	public ObservableList<SoldItem> getSoldItemsBymonth(String month){		
 		ObservableList<SoldItem> displayList = FXCollections.observableArrayList();
 		
