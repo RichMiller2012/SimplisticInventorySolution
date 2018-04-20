@@ -31,7 +31,7 @@ public class PointOfSaleController implements Initializable {
 	private static final String PHP = " PHP";
 	
 	private InventoryService inventoryService = new InventoryService();
-	
+			
     @FXML
     private TextField barcodeInput;
 	
@@ -128,7 +128,7 @@ public class PointOfSaleController implements Initializable {
 		
 		transaction.setTotal(transactionTotal);
 		
-		inventoryService.commitTransaction(transaction);
+		inventoryService.commitTransaction(transaction);	
 		
 		//clear the map for the next transaction
 		inventorySellItemMap.clear();

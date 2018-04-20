@@ -1,5 +1,6 @@
 package util;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,10 +8,13 @@ import dao.InventoryDAO;
 import entity.InventoryTO;
 import entity.SoldItemTO;
 import entity.TransactionsTO;
+import print.SalesReportPrint;
 
 public class Seed {
 
 	private static InventoryDAO dao = new InventoryDAO();
+	
+	private static SalesReportPrint pdfPrintService = new SalesReportPrint();
 	
 	public static void seed() {
 		
@@ -69,6 +73,8 @@ public class Seed {
 			dao.saveInventoryItem(item);
 		}
 		
+		List<SoldItemTO> printedSalesItems = new ArrayList<>();
+		
 		TransactionsTO trans1 = new TransactionsTO();
 		SoldItemTO trans1SellItem1 = new SoldItemTO();
 		trans1.setTotal(105.00);
@@ -81,6 +87,10 @@ public class Seed {
 		trans1SellItem2.setTransaction(trans1);
 		trans1.getSoldItems().add(trans1SellItem1);
 		trans1.getSoldItems().add(trans1SellItem2);
+		
+		printedSalesItems.add(trans1SellItem1);
+		printedSalesItems.add(trans1SellItem2);
+
 		
 		TransactionsTO trans2 = new TransactionsTO();
 		trans2.setTotal(205.00);
@@ -95,6 +105,11 @@ public class Seed {
 		trans2.getSoldItems().add(trans2SellItem1);
 		trans2.getSoldItems().add(trans2SellItem2);
 		
+		printedSalesItems.add(trans2SellItem1);
+		printedSalesItems.add(trans2SellItem2);
+
+
+		
 		TransactionsTO trans3 = new TransactionsTO();
 		trans3.setTotal(55.00);
 		SoldItemTO trans3SellItem1 = new SoldItemTO();
@@ -102,6 +117,10 @@ public class Seed {
 		trans3SellItem1.setQuantity(10);
 		trans3SellItem1.setTransaction(trans3);
 		trans3.getSoldItems().add(trans3SellItem1);
+		
+		printedSalesItems.add(trans3SellItem1);
+		
+		pdfPrintService.printSalesReport(LocalDate.now(), printedSalesItems);
 
 		
 		dao.commitTransaction(trans1);

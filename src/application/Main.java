@@ -16,7 +16,8 @@ public class Main extends Application {
 
 		JdbcConnector conn = new JdbcConnector();
 		conn.connect();	
-	
+		
+		//Print.printTransaction("Transaction details here");
 	
 		try {
 			
