@@ -5,11 +5,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import dao.ReportsDAO;
 import entity.SoldItemTO;
 import entity.TransactionsTO;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.PDFSalesItem;
@@ -24,7 +28,7 @@ public class ReportsService {
 	
 	public ReportsService() {
 		this.dao = new ReportsDAO();
-		allSoldItems = dao.getAllSoldItems();
+		allSoldItems = aggregateSoldItemQuantity(dao.getAllSoldItems());
 	}
 	
 	public ObservableList<SoldItem> getAllSoldItems(){
@@ -41,7 +45,7 @@ public class ReportsService {
 	}
 	
 	public void initData() {
-		allSoldItems = dao.getAllSoldItems();
+		allSoldItems = aggregateSoldItemQuantity(dao.getAllSoldItems());
 	}
 	
 	public ObservableList<SoldItem> getSoldItemsByDate(LocalDate date){
@@ -54,13 +58,32 @@ public class ReportsService {
 			Date thedate = soldItemTransaction.getSellDate();
 			System.out.println(thedate.toString());
 			
-			if(dateMatches(thedate, date)) {
-				displayList.add(new SoldItem(soldItem));
-			}
+			Double profit = (soldItem.getRetailPrice() - 
+					soldItem.getWholesalePrice()) * soldItem.getQuantity();
 			
+			if(dateMatches(thedate, date)) {
+				SoldItem soldItemModel = new SoldItem(soldItem);
+				soldItemModel.setProfit(new SimpleDoubleProperty(profit));
+				displayList.add(soldItemModel);			
+			}
 		}
 		
 		return displayList;
+	}
+	
+	private List<SoldItemTO> aggregateSoldItemQuantity(List<SoldItemTO> soldItems){
+		Map<String, SoldItemTO> soldItemMap = new HashMap<>();
+		
+		for(SoldItemTO soldItem : soldItems) {
+			if(soldItemMap.containsKey(soldItem.getSoldItem().getBarcode())){			
+				int currentQuantity = soldItemMap.get(soldItem.getSoldItem().getBarcode()).getQuantity();	
+				soldItemMap.get(soldItem.getSoldItem().getBarcode()).setQuantity(currentQuantity + soldItem.getQuantity());
+			} else {
+				soldItemMap.put(soldItem.getSoldItem().getBarcode(), soldItem);
+			}
+		}
+		
+		return new ArrayList<>(soldItemMap.values());
 	}
 	
 	public List<SoldItemTO> getPDFItemsByDate(LocalDate date){
@@ -87,12 +110,31 @@ public class ReportsService {
 		for(SoldItemTO soldItem : allSoldItems) {
 			TransactionsTO soldItemTransaction = soldItem.getTransaction();
 			
+			Double profit = (soldItem.getRetailPrice() - 
+					soldItem.getWholesalePrice()) * soldItem.getQuantity();
+			
 			if(monthMatches(soldItemTransaction.getSellDate(), month)) {
-				displayList.add(new SoldItem(soldItem));
+				SoldItem soldItemModel = new SoldItem(soldItem);
+				soldItemModel.setProfit(new SimpleDoubleProperty(profit));
+				displayList.add(soldItemModel);	
 			}
 		}
 		
 		return displayList;
+	}
+	
+	public List<SoldItemTO> getPDFItemsByMonth(String month){
+		List<SoldItemTO> soldItems = new ArrayList<>();
+		
+		for(SoldItemTO soldItem : allSoldItems) {
+			TransactionsTO transaction = soldItem.getTransaction();
+			
+			if(monthMatches(transaction.getSellDate(), month)) {
+				soldItems.add(soldItem);
+			}
+		}
+		
+		return soldItems;
 	}
 	
 	public List<PDFSalesItem> flatSellItemTOs(List<SoldItemTO> sellItems){
@@ -104,8 +146,8 @@ public class ReportsService {
 			saleItem.setQuantity(sellItem.getQuantity());
 			saleItem.setName(sellItem.getSoldItem().getName());
 			saleItem.setBarcode(sellItem.getSoldItem().getBarcode());
-			saleItem.setWholesalePrice(sellItem.getSoldItem().getWholesalePrice());
-			saleItem.setRetailPrice(sellItem.getSoldItem().getRetailPrice());
+			saleItem.setWholesalePrice(sellItem.getWholesalePrice());
+			saleItem.setRetailPrice(sellItem.getRetailPrice());
 			saleItem.setSellDate(sellItem.getTransaction().getSellDate().toString());
 			
 			salesItems.add(saleItem);

@@ -15,6 +15,8 @@ public class SoldItem {
 	private StringProperty barcode;
 	private IntegerProperty quantity;
 	private DoubleProperty profit;
+	private DoubleProperty wholeSalePrice;
+	private DoubleProperty retailPrice;
 	
 	public SoldItem() {}
 	
@@ -24,6 +26,8 @@ public class SoldItem {
 		this.barcode = new SimpleStringProperty(entity.getSoldItem().getBarcode());
 		this.quantity = new SimpleIntegerProperty(entity.getQuantity());
 		this.profit = new SimpleDoubleProperty(0.0);
+		this.wholeSalePrice = new SimpleDoubleProperty(entity.getWholesalePrice());
+		this.retailPrice = new SimpleDoubleProperty(entity.getRetailPrice());
 	}
 	
 	public IntegerProperty getId() {
@@ -56,6 +60,23 @@ public class SoldItem {
 	public void setProfit(DoubleProperty profit) {
 		this.profit = profit;
 	}
+
+	public DoubleProperty getWholeSalePrice() {
+		return wholeSalePrice;
+	}
+
+	public void setWholeSalePrice(DoubleProperty wholeSalePrice) {
+		this.wholeSalePrice = wholeSalePrice;
+	}
+
+	public DoubleProperty getRetailPrice() {
+		return retailPrice;
+	}
+
+	public void setRetailPrice(DoubleProperty retailPrice) {
+		this.retailPrice = retailPrice;
+	}
+	
 	
 	
 	

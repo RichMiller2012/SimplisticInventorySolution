@@ -1,12 +1,12 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import antlr.collections.List;
 import entity.InventoryTO;
 import entity.SoldItemTO;
 import entity.TransactionsTO;
@@ -14,7 +14,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 import model.Inventory;
-import service.InventoryService;
 
 public class InventoryDAO {
 	
@@ -58,6 +57,9 @@ public class InventoryDAO {
 			queriedItem.setQuantity(item.getQuantity());
 			queriedItem.setRetailPrice(item.getRetailPrice());
 			queriedItem.setWholesalePrice(item.getWholesalePrice());
+			queriedItem.setLowLevelAlert(item.getLowLevelAlert());
+			
+			session.saveOrUpdate(queriedItem);
 			
 			session.getTransaction().commit();
 			
@@ -74,18 +76,31 @@ public class InventoryDAO {
 	public void commitTransaction(TransactionsTO transaction) {
 		try {
 			openSession();
-			session.beginTransaction();
-			
-			session.save(transaction);
-			
+			session.beginTransaction();		
+			session.save(transaction);			
 			session.getTransaction().commit();
-			
 		} catch(Exception e) {
 			System.out.println("There was an issue commiting the transaction");
 			e.printStackTrace();
 		} finally {
 			session.close();
 		}
+	}
+	
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	public List<InventoryTO> getAllInventoryTOs(){
+		List<InventoryTO> allItems = new ArrayList<>();
+		try {
+			openSession();
+			session.beginTransaction();
+			allItems = (ArrayList<InventoryTO>) session.createCriteria(InventoryTO.class).list();
+			session.getTransaction().commit();
+		} catch(Exception e) {
+			System.out.println("There was an issue fetching all Inventory Items");
+			e.printStackTrace();
+		}
+		
+		return allItems;
 	}
 	
 	@SuppressWarnings({ "unchecked", "deprecation" })
@@ -106,7 +121,13 @@ public class InventoryDAO {
 		}
 		
 		for(InventoryTO item : allInventoryItems) {
-			inventory.add(new TreeItem<>(new Inventory(item.getId(), item.getName(), item.getBarcode(), item.getQuantity(), item.getWholesalePrice(), item.getRetailPrice())));
+			inventory.add(new TreeItem<>(new Inventory(item.getId(), 
+					item.getName(), 
+					item.getBarcode(), 
+					item.getQuantity(), 
+					item.getWholesalePrice(), 
+					item.getRetailPrice(), 
+					item.getLowLevelAlert())));
 		}
 		
 		return inventory;

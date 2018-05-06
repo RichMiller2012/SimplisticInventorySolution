@@ -19,11 +19,13 @@ public class SoldItemTO {
 		
 	}
 	
-	public SoldItemTO(int id, InventoryTO soldItem, int quantity, TransactionsTO transaction) {
+	public SoldItemTO(int id, InventoryTO soldItem, int quantity, TransactionsTO transaction, double wp, double rp) {
 		this.id = id;
 		this.soldItem = soldItem;
 		this.quantity = quantity;
 		this.transaction = transaction;
+		this.wholesalePrice = wp;
+		this.retailPrice = rp;
 	}
 	
 	@Id
@@ -36,6 +38,12 @@ public class SoldItemTO {
 	
 	@Column(name="quantity")
 	private int quantity;
+	
+	@Column
+	private Double wholesalePrice;
+	
+	@Column
+	private Double retailPrice;
 	
 	@ManyToOne
 	private TransactionsTO transaction;
@@ -75,4 +83,22 @@ public class SoldItemTO {
 	public void incrementQuantity() {
 		this.quantity++;
 	}
+
+	public Double getWholesalePrice() {
+		return wholesalePrice;
+	}
+
+	public void setWholesalePrice(Double wholesalePrice) {
+		this.wholesalePrice = wholesalePrice;
+	}
+
+	public Double getRetailPrice() {
+		return retailPrice;
+	}
+
+	public void setRetailPrice(Double retailPrice) {
+		this.retailPrice = retailPrice;
+	}
+	
+	
 }

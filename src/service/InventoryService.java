@@ -1,5 +1,8 @@
 package service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dao.InventoryDAO;
 import entity.InventoryTO;
 import entity.TransactionsTO;
@@ -40,5 +43,17 @@ public class InventoryService {
 		dao.commitTransaction(transaction);
 	}
 	
+	public List<InventoryTO> findLowItems(){
+		List<InventoryTO> lowItems = new ArrayList<>();
+		
+		for(InventoryTO item : dao.getAllInventoryTOs()) {
+			if(item.getQuantity() <= item.getLowLevelAlert()) {
+				lowItems.add(item);
+			}
+		}
+		
+		return lowItems;
+		
+	}
 
 }

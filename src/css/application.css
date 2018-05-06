@@ -16,7 +16,7 @@
 .tab {
 	-fx-background-color:-primary;
 	-fx-pref-width: 150;
-	-fx-pref-height: 150;
+	-fx-pref-height: 75;
 }
 
 .tab:hover {
@@ -29,4 +29,9 @@
 
 #main-sidebar {
 	-fx-background-color: -primary;
+}
+
+#alertButton {
+	-fx-focus-color: firebrick;
+	-fx-faint-focus-color: transparent;
 }

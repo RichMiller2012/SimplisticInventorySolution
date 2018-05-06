@@ -42,6 +42,9 @@ public class ReceivingController implements Initializable {
 	private TextField retailPriceInfo;
 	
 	@FXML
+    private TextField lowLimitInfo;
+	
+	@FXML
 	private Label itemNotFoundText;
 	
 	@FXML
@@ -55,6 +58,11 @@ public class ReceivingController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
+		quantityInput.focusedProperty().addListener((observable, oldValue, newValue) -> {
+			  if (!newValue) {
+				  quantityInput.increment(0); // won't change value, but will commit editor
+			  }
+			});
 		
 		itemNotFoundText.setVisible(false);
 		barcodeInput.setDisable(false);
@@ -89,12 +97,14 @@ public class ReceivingController implements Initializable {
 		
 		if(selectedItem == null) {
 			itemNotFoundText.setVisible(true);
+			barcodeInfo.setText(barcode);
 		} else {
 			barcodeInfo.setText(barcode);
 			itemNameInfo.setText(selectedItem.getName());
 			currentQuantityInfo.setText(new Integer(selectedItem.getQuantity()).toString());
 			retailPriceInfo.setText(selectedItem.getRetailPrice().toString());
 			wholesalePriceInfo.setText(selectedItem.getWholesalePrice().toString());
+			lowLimitInfo.setText(selectedItem.getLowLevelAlert().toString());
 			
 			if(itemNotFoundText.isVisible()) {
 				itemNotFoundText.setVisible(false);
@@ -105,25 +115,51 @@ public class ReceivingController implements Initializable {
 	public void addInventoryItem() {
 		
 		InventoryTO selectedItem = service.findItemByBarcode(barcodeInfo.getText());
-		
-
-
 		quantityInput.increment(0); // won't change value, but will commit editor
+		
+		System.out.println("getValue().toString(): " + quantityInput.getValue().toString());
+		
 		int q = quantityInput.getValue().intValue();
+		int itemId = 0;
+		int itemQuantity = 0;
+		boolean newItem = false;
 		
 		if(selectedItem != null) {
-			service.updateItem(selectedItem, quantityInput.getValue().intValue());
+			itemId = selectedItem.getId();
+			
+			//check to see if use adjusted the quantity box
+			if(Integer.parseInt(currentQuantityInfo.getText()) != selectedItem.getQuantity()) {
+				itemQuantity = Integer.parseInt(currentQuantityInfo.getText());
+			} else {
+				itemQuantity = selectedItem.getQuantity() + q;	
+			}
 		} else {
-			selectedItem = new InventoryTO(
-					0,
-					itemNameInfo.getText(),
-					barcodeInput.getText(),
-					q,
-					Double.parseDouble(wholesalePriceInfo.getText()),
-					Double.parseDouble(retailPriceInfo.getText())
-					);
-			service.addItem(selectedItem);
-					
+			newItem = true;
+			itemQuantity = q;
+		}
+		
+		
+		selectedItem = new InventoryTO(
+				itemId,
+				itemNameInfo.getText(),
+				barcodeInput.getText(),
+				itemQuantity,
+				Double.parseDouble(wholesalePriceInfo.getText()),
+				Double.parseDouble(retailPriceInfo.getText()),
+				Integer.parseInt(lowLimitInfo.getText())
+				);
+		
+		if(newItem) {
+			service.addItem(selectedItem);	
+		} else {
+			service.updateItem(selectedItem);
+		}
+		
+		//update low level alert
+		if(selectedItem.getQuantity() <= selectedItem.getLowLevelAlert()) {
+			main.updateLowItem(selectedItem);
+		} else if(main.alertMapContainsItem(selectedItem.getBarcode())) {
+			main.removeLowItem(selectedItem.getBarcode());
 		}
 		
 		cancelBarcodeEntry();
@@ -139,10 +175,10 @@ public class ReceivingController implements Initializable {
 		barcodeInfo.clear();
 		itemNameInfo.clear();
 		currentQuantityInfo.clear();
+		quantityInput.getValueFactory().setValue(1);
 		retailPriceInfo.clear();
 		wholesalePriceInfo.clear();
-		
-		quantityInput = new Spinner<Number>(1,9999,1);
+		lowLimitInfo.clear();
 		
 		reselected();
 	}	

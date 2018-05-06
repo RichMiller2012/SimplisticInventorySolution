@@ -126,7 +126,14 @@ public class ReportingController implements Initializable {
 		
 		System.out.println("Found " + soldItemsByMonth.size() + " Sold Items");
 		
-		reportsTable.setItems(soldItemsByMonth);
+		reportsTable.getItems().clear();
+		reportsTable.getItems().addAll(soldItemsByMonth);
+		
+		currentPDFSoldItems = reportsService.getPDFItemsByMonth(month);
+		isDaily = false;
+		selectedDate = LocalDate.of(1, Months.getValueOfMonth(month), 1);
+		
+		
 	}
 	
 	public void init(MainController mainController) {

@@ -1,11 +1,5 @@
-/bill_system/
-/jasperreports/
-/application/
-/controller/
-/dao/
-/entity/
-/model/
-/print/
 /service/
-/util/
+/controller/
+/THERMAL Receipt Printer 4.X/
 /fxml/
+/util/

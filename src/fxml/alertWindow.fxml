@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="498.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="controller.LowInventoryAlertController">
+   <children>
+      <HBox prefHeight="400.0" prefWidth="498.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TreeTableView fx:id="itemTable" prefHeight="400.0" prefWidth="428.0">
+              <columns>
+                <TreeTableColumn fx:id="itemCol" prefWidth="334.5" text="Item" />
+                <TreeTableColumn fx:id="quantityCol" minWidth="0.0" prefWidth="76.5" text="Quantity" />
+              </columns>
+            </TreeTableView>
+            <AnchorPane prefHeight="400.0" prefWidth="102.0">
+               <children>
+                  <Button fx:id="printButton" layoutX="8.0" layoutY="165.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="71.0" text="Print" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

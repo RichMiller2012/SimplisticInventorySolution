@@ -22,15 +22,17 @@ public class InventoryTO {
 		this.quantity  = item.quantity;
 		this.wholesalePrice = item.wholesalePrice;
 		this.retailPrice = item.retailPrice;
+		this.lowLevelAlert = item.lowLevelAlert;
 	}
 	
-	public InventoryTO(int id, String name, String barcode, int quantity, Double wholesalePrice, Double retailPrice) {
+	public InventoryTO(int id, String name, String barcode, int quantity, Double wholesalePrice, Double retailPrice, Integer lowLevelAlert) {
 		this.id = id;
 		this.name = name;
 		this.barcode = barcode;
 		this.quantity = quantity;
 		this.wholesalePrice = wholesalePrice;
 		this.retailPrice = retailPrice;
+		this.lowLevelAlert = lowLevelAlert;
 	}
 
 	@Id
@@ -51,6 +53,9 @@ public class InventoryTO {
 	
 	@Column
 	private Double retailPrice;
+	
+	@Column
+	private Integer lowLevelAlert;
 
 	public int getId() {
 		return id;
@@ -100,6 +105,14 @@ public class InventoryTO {
 		this.retailPrice = retailPrice;
 	}
 	
+	public Integer getLowLevelAlert() {
+		return lowLevelAlert;
+	}
+
+	public void setLowLevelAlert(Integer lowLevelAlert) {
+		this.lowLevelAlert = lowLevelAlert;
+	}
+
 	public void decrementQuantity() {
 		if(quantity >= 0) {
 			quantity--;

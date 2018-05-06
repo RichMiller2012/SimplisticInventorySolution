@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import model.PDFSalesItem;
 import model.SoldItem;
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -35,14 +36,18 @@ public class ReportsPrintUtility extends Application {
 		String saveFilePath = Paths.get(System.getProperty("user.dir")).getParent().toString() + fileName;
 		System.out.println(saveFilePath);
 			
+		List<PDFSalesItem> pdfItems = flattenSoldItems(soldItems);
+		
 		String sourceFileNameJasper = jasperFilePath;
-		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(flattenSoldItems(soldItems));
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(pdfItems);
 		
 		Map<String, Object> parameters = new HashMap<>();
+		parameters.put("ItemDataSource", dataSource);
+		parameters.putAll(addReportParameters(date, daily, pdfItems));
 		
 		//generate the PDF and save to the save location
 		try {
-			JasperPrint jasperPrint = JasperFillManager.fillReport(sourceFileNameJasper, parameters, dataSource);
+			JasperPrint jasperPrint = JasperFillManager.fillReport(sourceFileNameJasper, parameters, new JREmptyDataSource());
 			JasperExportManager.exportReportToPdfFile(jasperPrint, saveFilePath);
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -51,6 +56,28 @@ public class ReportsPrintUtility extends Application {
 		//display the PDF in the default browser or host service
 			HostServices hostServices = getHostServices();
 			hostServices.showDocument(saveFilePath);
+	}
+	
+	private Map<String, Object> addReportParameters(LocalDate date, boolean daily, List<PDFSalesItem> pdfItems) {
+		Map<String, Object> reportParameters = new HashMap<>();
+		
+		//calculate the date or month to display
+		if(daily) {
+			reportParameters.put("date", date.toString());
+			reportParameters.put("isDaily", Boolean.TRUE);
+		} else {			
+			reportParameters.put("month", date.getMonth().toString());
+			reportParameters.put("isDaily", Boolean.FALSE);
+		}
+		
+		//calculate the total profit
+		Double totalProfit = 0.0;
+		for(PDFSalesItem item : pdfItems) {
+			totalProfit += item.getItemProfit();
+		}
+		reportParameters.put("totalProfit", totalProfit);
+		
+		return reportParameters;
 	}
 
 	private List<PDFSalesItem> flattenSoldItems(List<SoldItemTO> soldItems){
@@ -62,9 +89,14 @@ public class ReportsPrintUtility extends Application {
 			pdfItem.setQuantity(soldItem.getQuantity());
 			pdfItem.setName(soldItem.getSoldItem().getName());
 			pdfItem.setBarcode(soldItem.getSoldItem().getBarcode());
-			pdfItem.setWholesalePrice(soldItem.getSoldItem().getWholesalePrice());
-			pdfItem.setRetailPrice(soldItem.getSoldItem().getRetailPrice());
+			pdfItem.setWholesalePrice(soldItem.getWholesalePrice());
+			pdfItem.setRetailPrice(soldItem.getRetailPrice());
 			pdfItem.setSellDate(soldItem.getTransaction().getSellDate().toString());
+			
+			Double profit = (soldItem.getRetailPrice() - 
+					soldItem.getWholesalePrice()) * soldItem.getQuantity();
+			
+			pdfItem.setItemProfit(profit);
 			
 			pdfItems.add(pdfItem);	
 		}

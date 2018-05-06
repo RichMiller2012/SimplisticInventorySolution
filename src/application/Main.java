@@ -16,9 +16,7 @@ public class Main extends Application {
 
 		JdbcConnector conn = new JdbcConnector();
 		conn.connect();	
-		
-		//Print.printTransaction("Transaction details here");
-	
+			
 		try {
 			
 			Parent root = FXMLLoader.load(getClass().getResource("../fxml/Main.fxml"));
@@ -29,9 +27,7 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		Seed seed = new Seed();
-		seed.seed();
+	
 	}
 	
 	public static void main(String[] args) {

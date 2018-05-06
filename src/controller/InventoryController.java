@@ -3,12 +3,14 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
+import model.AlertButtonContext;
 import model.Inventory;
 import service.InventoryService;
 
@@ -39,7 +41,9 @@ public class InventoryController implements Initializable {
 	
 	private InventoryService service = new InventoryService();
 
-	TreeItem<Inventory> root = new TreeItem<>(new Inventory(0, "name", "barcode", 0, 0.0, 0.0));
+	private TreeItem<Inventory> root = new TreeItem<>(new Inventory(0, "name", "barcode", 0, 0.0, 0.0, 0));
+	
+	private ObservableList<TreeItem<Inventory>>	items = FXCollections.observableArrayList();
 	
 	@Override
 	public void initialize(URL aurlrg0, ResourceBundle rb) {		
@@ -52,7 +56,7 @@ public class InventoryController implements Initializable {
 	
 	public void initColumns() {
 		//get this from a database
-		ObservableList<TreeItem<Inventory>>	items = service.fetchInventory();
+		items = service.fetchInventory();
 		
 		root.getChildren().setAll(items);
 		
@@ -66,5 +70,4 @@ public class InventoryController implements Initializable {
 		inventoryTreeTable.setRoot(root);
 		inventoryTreeTable.setShowRoot(false);	
 	}
-
 }

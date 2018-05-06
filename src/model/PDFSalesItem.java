@@ -8,6 +8,7 @@ public class PDFSalesItem {
 	private Double wholesalePrice;
 	private Double retailPrice;
 	private String sellDate;
+	private Double itemProfit;
 	
 	public Integer getQuantity() {
 		return quantity;
@@ -44,6 +45,12 @@ public class PDFSalesItem {
 	}
 	public void setSellDate(String sellDate) {
 		this.sellDate = sellDate;
+	}
+	public void setItemProfit(Double profit) {
+		this.itemProfit = profit;
+	}
+	public Double getItemProfit() {
+		return itemProfit;
 	}
 	
 	

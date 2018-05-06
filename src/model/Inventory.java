@@ -20,6 +20,7 @@ public class Inventory {
 	private IntegerProperty quantity;
 	private DoubleProperty wholesalePrice;
 	private DoubleProperty retailPrice;
+	private IntegerProperty lowAlertLevel;
 
 	public Inventory(
 			int id,
@@ -27,7 +28,8 @@ public class Inventory {
 			String barcode,
 			int quantity,
 			double wholesalePrice,
-			double retailPrice
+			double retailPrice,
+			int lowAlertLevel
 			) {
 		
 		this.id = new SimpleIntegerProperty(id);
@@ -36,6 +38,7 @@ public class Inventory {
 		this.quantity = new SimpleIntegerProperty(quantity);
 		this.wholesalePrice = new SimpleDoubleProperty(wholesalePrice);
 		this.retailPrice = new SimpleDoubleProperty(retailPrice);
+		this.lowAlertLevel = new SimpleIntegerProperty(lowAlertLevel);
 	}
 	
 	public Inventory(InventoryTO data) {
@@ -45,6 +48,7 @@ public class Inventory {
 		this.quantity = new SimpleIntegerProperty(data.getQuantity());
 		this.wholesalePrice = new SimpleDoubleProperty(data.getWholesalePrice());
 		this.retailPrice = new SimpleDoubleProperty(data.getRetailPrice());
+		this.lowAlertLevel = new SimpleIntegerProperty(data.getLowLevelAlert());
 	}
 	
 	public IntegerProperty getId() {
@@ -94,5 +98,20 @@ public class Inventory {
 	public void setRetailPrice(DoubleProperty retailPrice) {
 		this.retailPrice = retailPrice;
 	}
+
+	public IntegerProperty getLowAlertLevel() {
+		return lowAlertLevel;
+	}
+
+	public void setLowAlertLevel(IntegerProperty lowAlertLevel) {
+		this.lowAlertLevel = lowAlertLevel;
+	}
+	
+	//Take double the low amount and subtract current quantity
+	public IntegerProperty getDoubleLowLevelAlert() {
+		Integer low = this.lowAlertLevel.getValue();
+		return new SimpleIntegerProperty(low * 2 - this.quantity.getValue());
+	}
+	
 	
 }

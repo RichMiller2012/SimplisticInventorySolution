@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import entity.InventoryTO;
 import entity.SoldItemTO;
 import entity.TransactionsTO;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,6 +25,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.Inventory;
 import service.InventoryService;
+import service.TransactionPrintUtility;
 
 public class PointOfSaleController implements Initializable {
 
@@ -31,6 +33,10 @@ public class PointOfSaleController implements Initializable {
 	private static final String PHP = " PHP";
 	
 	private InventoryService inventoryService = new InventoryService();
+	
+	private MainController main;
+	
+	private TransactionPrintUtility printUtil = new TransactionPrintUtility();
 			
     @FXML
     private TextField barcodeInput;
@@ -55,7 +61,7 @@ public class PointOfSaleController implements Initializable {
 	
 	private InventoryService service = new InventoryService();
     
-	private TreeItem<Inventory> root = new TreeItem<>(new Inventory(0, "name", "barcode", 0, 0.0, 0.0));
+	private TreeItem<Inventory> root = new TreeItem<>(new Inventory(0, "name", "barcode", 0, 0.0, 0.0, 0));
 	
 	private ObservableList<TreeItem<Inventory>> sellings = FXCollections.observableArrayList(); 
 		
@@ -78,6 +84,16 @@ public class PointOfSaleController implements Initializable {
 		posTable.setShowRoot(false);
 		
 		posTotalLabel.setText(TOTAL_TEXT + total.toString() + PHP);
+		Platform.runLater(() -> barcodeInput.requestFocus());
+	}
+	
+	public void init(MainController mainController) {
+		main = mainController;
+		Platform.runLater(() -> barcodeInput.requestFocus());
+	}
+	
+	public void reselected() {
+		Platform.runLater(() -> barcodeInput.requestFocus());
 	}
 	
 	public void addItemToSellList(KeyEvent event) {
@@ -120,27 +136,39 @@ public class PointOfSaleController implements Initializable {
 			//save the sold item
 			SoldItemTO soldItem = inventorySellItemMap.get(item);
 			soldItem.setSoldItem(item);
+			soldItem.setWholesalePrice(item.getWholesalePrice());
+			soldItem.setRetailPrice(item.getRetailPrice());
 			transaction.getSoldItems().add(inventorySellItemMap.get(item));
 			soldItem.setTransaction(transaction);
 			
 			transactionTotal += soldItem.getQuantity() * item.getRetailPrice();
+			
+			//check low inventory levels
+			if(item.getQuantity() <= item.getLowLevelAlert()) {
+				main.updateLowItem(item);
+			} else if(main.alertMapContainsItem(item.getBarcode())) {
+				main.removeLowItem(item.getBarcode());
+			}
 		}
 		
 		transaction.setTotal(transactionTotal);
 		
+		//render receipt printing if selected
+		printUtil.setTransaction(transaction);
+		printUtil.renderPrintReceiptAlert();
+		
 		inventoryService.commitTransaction(transaction);	
 		
 		//clear the map for the next transaction
+		posTotalLabel.setText(TOTAL_TEXT + total.toString() + PHP);
 		inventorySellItemMap.clear();
 		inventoryQuantityMap.clear();
 		sellings.clear();
 		initialize(null, null);
 		barcodeInput.requestFocus();
 	}
-	
-	
-	private void updateInventoryMaps(InventoryTO item) {
 		
+	private void updateInventoryMaps(InventoryTO item) {
 		if(inventoryQuantityMap.containsKey(item) && inventorySellItemMap.containsKey(item)) {
 			 
 			 //update the quantity to be subtracted from the quantity of the item
@@ -155,6 +183,8 @@ public class PointOfSaleController implements Initializable {
 			SoldItemTO soldItem = new SoldItemTO();
 			soldItem.setQuantity(1);
 			soldItem.setSoldItem(item);
+			soldItem.setWholesalePrice(item.getWholesalePrice());
+			soldItem.setRetailPrice(item.getRetailPrice());
 			
 			//place items in the maps
 			inventorySellItemMap.put(item, soldItem);
