@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import model.Inventory;
+
 @Entity
 public class InventoryTO {
 
@@ -33,6 +35,16 @@ public class InventoryTO {
 		this.wholesalePrice = wholesalePrice;
 		this.retailPrice = retailPrice;
 		this.lowLevelAlert = lowLevelAlert;
+	}
+	
+	public InventoryTO(Inventory item) {
+		this.id = item.getId().getValue();
+		this.name = item.getName().getValue();
+		this.barcode = item.getName().getValue();
+		this.quantity = item.getQuantity().getValue();
+		this.wholesalePrice = item.getWholesalePrice().getValue();
+		this.retailPrice = item.getRetailPrice().getValue();
+		this.lowLevelAlert = item.getLowAlertLevel().getValue();
 	}
 
 	@Id

@@ -26,7 +26,13 @@ public class ReportsPrintUtility extends Application {
 	public  void printSalesReport(LocalDate date, List<SoldItemTO> soldItems, boolean daily) {
 		
 		//append the file name with the date
-		String fileName = "\\test" + date.toString() + ".pdf";
+		String fileName = "\\Sales Report - ";
+		
+		if(daily) {
+			fileName = fileName + date.toString() + ".pdf";
+		} else {
+			fileName = fileName + date.getMonth().toString() + "-" + date.now().getYear() + ".pdf";
+		}
 
 		//get the path to the compiled jasper template
 		String jasperFilePath = System.getProperty("user.dir") + "\\resources\\jasperreports\\\\salesReport.jasper";

@@ -53,10 +53,38 @@ public class ReceivingController implements Initializable {
 	@FXML
 	private Button itemCancelButton;
 	
+	private boolean editMode;
+	private InventoryTO currentItem;
+	
 	private InventoryService service = new InventoryService();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		//set listeners to all to item properties for edit mode to shut off 
+		barcodeInfo.textProperty().addListener((observable, oldValue, newValue) -> {	
+			validateItemNotChanged(newValue, currentItem.getBarcode());
+		});
+		
+		itemNameInfo.textProperty().addListener((observable, oldValue, newValue) -> {	
+			validateItemNotChanged(newValue, currentItem.getName());
+		});
+		
+		currentQuantityInfo.textProperty().addListener((observable, oldValue, newValue) -> {	
+			validateItemNotChanged(newValue, new Integer(currentItem.getQuantity()).toString());
+		});
+		
+		retailPriceInfo.textProperty().addListener((observable, oldValue, newValue) -> {	
+			validateItemNotChanged(newValue, currentItem.getRetailPrice().toString());
+		});
+		
+		wholesalePriceInfo.textProperty().addListener((observable, oldValue, newValue) -> {	
+			validateItemNotChanged(newValue, currentItem.getWholesalePrice().toString());
+		});
+		
+		lowLimitInfo.textProperty().addListener((observable, oldValue, newValue) -> {	
+			validateItemNotChanged(newValue, currentItem.getLowLevelAlert().toString());
+		});
 		
 		quantityInput.focusedProperty().addListener((observable, oldValue, newValue) -> {
 			  if (!newValue) {
@@ -69,6 +97,33 @@ public class ReceivingController implements Initializable {
 		quantityInput.getValueFactory().setValue(1);
 		Platform.runLater(() -> barcodeInput.requestFocus());
 	} 
+	
+	private void validateItemNotChanged(String newValue, String checkValue) {
+
+		if(currentItem == null) return;
+		
+		if(!newValue.equals(checkValue)) {
+			//if the new value is different from the oldvalue set editMode
+			editMode = true;
+		} else { 
+			//else check all the other properties
+			editMode = 
+				barcodeInfo.getText().equals(currentItem.getBarcode()) &&
+				itemNameInfo.getText().equals(currentItem.getName()) &&
+				currentQuantityInfo.getText().equals(currentItem.getQuantity()) &&
+				retailPriceInfo.getText().equals(currentItem.getRetailPrice()) &&
+				wholesalePriceInfo.getText().equals(currentItem.getWholesalePrice()) &&
+				lowLimitInfo.getText().equals(currentItem.getLowLevelAlert());
+		}
+		
+		if(editMode) {
+			itemAddButton.setText("Edit");
+		} else {
+			itemAddButton.setText("Add");
+		}
+		
+		quantityInput.setDisable(editMode);
+	}
 	
 	public void init(MainController mainController) {
 		main = mainController;
@@ -98,7 +153,11 @@ public class ReceivingController implements Initializable {
 		if(selectedItem == null) {
 			itemNotFoundText.setVisible(true);
 			barcodeInfo.setText(barcode);
+			currentItem = null;
 		} else {
+			
+			currentItem = selectedItem;
+			
 			barcodeInfo.setText(barcode);
 			itemNameInfo.setText(selectedItem.getName());
 			currentQuantityInfo.setText(new Integer(selectedItem.getQuantity()).toString());
@@ -117,8 +176,6 @@ public class ReceivingController implements Initializable {
 		InventoryTO selectedItem = service.findItemByBarcode(barcodeInfo.getText());
 		quantityInput.increment(0); // won't change value, but will commit editor
 		
-		System.out.println("getValue().toString(): " + quantityInput.getValue().toString());
-		
 		int q = quantityInput.getValue().intValue();
 		int itemId = 0;
 		int itemQuantity = 0;
@@ -127,8 +184,8 @@ public class ReceivingController implements Initializable {
 		if(selectedItem != null) {
 			itemId = selectedItem.getId();
 			
-			//check to see if use adjusted the quantity box
-			if(Integer.parseInt(currentQuantityInfo.getText()) != selectedItem.getQuantity()) {
+			//check to see if use adjusted the quantity box or by edit mode
+			if(editMode) {
 				itemQuantity = Integer.parseInt(currentQuantityInfo.getText());
 			} else {
 				itemQuantity = selectedItem.getQuantity() + q;	
@@ -137,8 +194,7 @@ public class ReceivingController implements Initializable {
 			newItem = true;
 			itemQuantity = q;
 		}
-		
-		
+			
 		selectedItem = new InventoryTO(
 				itemId,
 				itemNameInfo.getText(),
@@ -179,6 +235,9 @@ public class ReceivingController implements Initializable {
 		retailPriceInfo.clear();
 		wholesalePriceInfo.clear();
 		lowLimitInfo.clear();
+		
+		currentItem = null;
+		editMode = false;
 		
 		reselected();
 	}	

@@ -1,5 +1,6 @@
-/service/
 /controller/
-/THERMAL Receipt Printer 4.X/
-/fxml/
+/print/
 /util/
+/service/
+/fxml/
+/entity/

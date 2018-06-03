@@ -1,6 +1,7 @@
 package controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -18,6 +19,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import model.Inventory;
+import service.TransactionPrintUtility;
 
 public class LowInventoryAlertController implements Initializable{
 
@@ -29,6 +31,8 @@ public class LowInventoryAlertController implements Initializable{
 
     @FXML
     private TreeTableColumn<Inventory, Integer> quantityCol;
+    
+    private TransactionPrintUtility printUtil = new TransactionPrintUtility();
 
     @FXML
     private Button printButton;
@@ -49,7 +53,7 @@ public class LowInventoryAlertController implements Initializable{
 	}
 	
 	public void initData(Map<String, InventoryTO> lowItems) {
-			//this.lowItems = lowItems;
+			this.lowItems = lowItems;
 			
 			for(String item : lowItems.keySet()) {
 				TreeItem<Inventory> treeItem = new TreeItem<>(new Inventory(lowItems.get(item)));
@@ -57,5 +61,9 @@ public class LowInventoryAlertController implements Initializable{
 			}
 			
 			root.getChildren().setAll(items);
+	}
+	
+	public void printLowItems() {
+		printUtil.printLowItems(new ArrayList<>(this.lowItems.values()));
 	}
 }

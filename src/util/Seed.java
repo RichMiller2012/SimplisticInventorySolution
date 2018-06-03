@@ -9,14 +9,11 @@ import entity.SoldItemTO;
 import entity.TransactionsTO;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import print.SalesReportPrint;
 
 public class Seed extends Application {
 
 	private  InventoryDAO dao = new InventoryDAO();
-	
-	private  SalesReportPrint pdfPrintService = new SalesReportPrint();
-	
+		
 	public  void seed() {
 		
 		List<InventoryTO> seedItems = new ArrayList<>();
@@ -43,7 +40,7 @@ public class Seed extends Application {
 		item2222.setQuantity(24);
 		item2222.setWholesalePrice(2.00);
 		item2222.setRetailPrice(22.00);
-		item2222.setLowLevelAlert(15);
+		item2222.setLowLevelAlert(25);
 		
 		InventoryTO item3333 = new InventoryTO();
 		item3333.setName("Zinc Supplement");

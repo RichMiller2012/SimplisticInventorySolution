@@ -1,7 +1,9 @@
 package service;
 
+import java.util.List;
 import java.util.Optional;
 
+import entity.InventoryTO;
 import entity.SoldItemTO;
 import entity.TransactionsTO;
 import javafx.fxml.FXMLLoader;
@@ -73,6 +75,20 @@ public class TransactionPrintUtility{
 		
 		System.out.println(sb.toString());
 		
+		Print.printTransaction(sb.toString());
+	}
+	
+	public void printLowItems(List<InventoryTO> lowItems) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Low Items for Purchase\n");
+		sb.append("--------------------------\n");
+
+		for(InventoryTO li : lowItems) {
+			sb.append(li.getName() + "  " + li.getQuantity() + "\n");
+		}
+		
+		System.out.println(sb.toString());
 		Print.printTransaction(sb.toString());
 	}
 	

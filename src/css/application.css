@@ -1,37 +1,65 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
-
-/* color theme */
-
-* {
-	-primary : #154848;
-	-secondary : #3ED4D4;
-	-tertiary : #154848;
-	-alternate: #2C9595;
+.root {
+    -fx-font-size: 14px;
+    -fx-font-family: sans-serif;
+    -fx-background-color: #ffffff;
 }
 
-.tab-header-background {
-	-fx-background-color:-primary;
+.header-section {
+    -fx-padding: 10px;
+    -fx-font-size: 20px;
+    -fx-background-color: teal;
 }
 
-.tab {
-	-fx-background-color:-primary;
-	-fx-pref-width: 150;
-	-fx-pref-height: 75;
+.header-section Label {
+    -fx-text-fill: #ffffff;
+    -fx-padding: 10px;
 }
 
-.tab:hover {
-	-fx-background-color:#3ED4D4
+#account {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
 }
 
-.tab:selected {
-	-fx-background-color:#2C9595
+.sidebar-section {
+    -fx-min-width: 200px;
+    -fx-pref-width: 200px;
+    -fx-max-width: 200px;
+    -fx-border-width: 1;
+    -fx-border-color: transparent #E8E8E8 transparent transparent;
 }
 
-#main-sidebar {
-	-fx-background-color: -primary;
+.sidebar-section Label {
+    -fx-font-size: 18px;
+    -fx-padding: 10 15 10 15;
+    -fx-border-width: 1;
+    -fx-border-color: transparent transparent #E8E8E8 transparent;
+    -fx-min-width: 200px;
+    -fx-pref-width: 200px;
+    -fx-max-width: 200px;
 }
 
-#alertButton {
-	-fx-focus-color: firebrick;
-	-fx-faint-focus-color: transparent;
+.content-section {
+    -fx-padding: 10 20 10 20;
+    -fx-wrap-text: true;
+
+}
+
+#content-header {
+    -fx-font-size: 18px;
+    -fx-padding: 0 0 10 0;
+    -fx-font-weight: 700;
+}
+
+#content {
+    -fx-wrap-text: true;
+    -fx-font-size: 16px;
+}
+
+#footer-section {
+    -fx-alignment: center;
+    -fx-padding: 10 10 10 10;
+    -fx-border-width: 1;
+    -fx-border-color: #E8E8E8 transparent transparent transparent;
 }
