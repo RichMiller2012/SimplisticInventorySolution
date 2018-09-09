@@ -9,8 +9,8 @@
         <!-- JDBC Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://localhost:3306/sis?createDatabaseIfNotExist=true</property>
-        <property name="connection.username">sisuser</property>
-        <property name="connection.password">sisuser</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">password</property>
 
         <property name="hibernate.hbm2ddl.auto">create</property>
 
@@ -18,7 +18,7 @@
         <property name="connection.pool_size">100</property>
 
         <!-- Select our SQL dialect -->
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</property>
 
         <!-- Echo the SQL to stdout -->
         <property name="show_sql">true</property>

@@ -1,0 +1,64 @@
+;
+;	Printer Installation File
+;
+;	 List of supported printers, manufacturers
+;
+
+[Version]
+Signature="$Windows NT$"
+Provider=%SA%
+ClassGUID={4D36E979-E325-11CE-BFC1-08002BE10318}
+Class=Printer
+
+[ClassInstall32.NT]
+AddReg=printer_class_addreg
+
+[printer_class_addreg]
+HKR,,,,%PrinterClassName%
+HKR,,Icon,,"-4"
+HKR,,Installer32,,"ntprint.dll,ClassInstall32"
+HKR,,NoDisplayClass,,1
+HKR,,EnumPropPages32,,"printui.dll,PrinterPropPageProvider"
+
+;
+; Manufacturer section.
+;
+; This section lists all of the manufacturers
+; that we will display in the Dialog box
+;
+
+[Manufacturer]
+"POS-X"=POS-X,NTamd64,NTia64
+
+;
+; Model Specifications Section
+;
+
+[POS-X]
+"POS-X Thermal Printer" = INSTALL_OEMUNI
+
+[POS-X.NTamd64]
+"POS-X Thermal Printer" = INSTALL_OEMUNI
+
+[POS-X.NTia64]
+"POS-X Thermal Printer" = INSTALL_OEMUNI
+
+
+;
+; Installer section(s) referenced above.
+;
+
+[INSTALL_OEMUNI]
+CopyFiles=@LKNEW4.Dll,@LKNEW4.GPD,@LKNEW4.ini,@LKNEW4E.dll,@LKNEW4UI.dll
+DataSection=UNIDRV_BIDI_DATA
+DataFile=LKNEW4.GPD
+Include=NTPRINT.INF
+Needs=UNIDRV_BIDI.OEM
+
+[DestinationDirs]
+DefaultDestDir=66000
+
+[Strings]
+PrinterClassName="Printers"
+SA="POS-X"
+disk1="POS-X Thermal Printer Driver Setup Disk"

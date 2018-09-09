@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="441.0" prefWidth="649.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InventoryController">
+<AnchorPane prefHeight="655.0" prefWidth="1141.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InventoryController">
    <children>
-      <TreeTableView fx:id="inventoryTreeTable" layoutX="1.0" prefHeight="441.0" prefWidth="649.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <columns>
-            <TreeTableColumn fx:id="id" prefWidth="93.0" text="Item ID" />
-            <TreeTableColumn fx:id="name" prefWidth="117.0" text="Item Name" />
-            <TreeTableColumn fx:id="barcode" prefWidth="90.0" text="Barcode" />
-            <TreeTableColumn fx:id="quantity" minWidth="0.0" prefWidth="110.0" text="Quantity" />
-            <TreeTableColumn fx:id="wholesalePrice" prefWidth="133.0" text="Wholesale Price" />
-            <TreeTableColumn fx:id="retailPrice" prefWidth="105.0" text="Retail Price" />
-         </columns>
-      </TreeTableView>
+      <VBox prefHeight="441.0" prefWidth="1141.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane id="inv-anchor" prefHeight="50.0" prefWidth="1141.0" style="-fx-background-color: transparent;" stylesheets="@styles.css" visible="false">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </AnchorPane>
+            <TableView fx:id="inventoryTable" prefHeight="604.0" prefWidth="1141.0">
+               <columns>
+                  <TableColumn fx:id="id" minWidth="76.0" prefWidth="76.0" text="ID" />
+                  <TableColumn fx:id="name" prefWidth="494.9999694824219" text="Item Name" />
+                  <TableColumn fx:id="barcode" prefWidth="135.0" text="Barcode" />
+                  <TableColumn fx:id="quantity" minWidth="0.0" prefWidth="176.0" text="Qnty" />
+                  <TableColumn fx:id="wholesalePrice" prefWidth="124.0" text="Wholesale" />
+                  <TableColumn fx:id="retailPrice" prefWidth="134.0" text="Retail" />
+               </columns>
+            </TableView>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

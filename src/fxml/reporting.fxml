@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="476.0" prefWidth="1033.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportingController">
+<AnchorPane prefHeight="699.0" prefWidth="1237.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportingController">
    <children>
       <BorderPane prefHeight="476.0" prefWidth="769.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
@@ -39,7 +39,7 @@
                </children></StackPane>
          </top>
          <right>
-            <StackPane prefHeight="389.0" prefWidth="214.0" BorderPane.alignment="CENTER">
+            <StackPane prefHeight="554.0" prefWidth="125.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="printButton" mnemonicParsing="false" onMouseClicked="#printCurrentSoldItems" prefHeight="76.0" prefWidth="101.0" text="Print" />
                </children></StackPane>
@@ -54,9 +54,9 @@
                   <TableView fx:id="reportsTable" prefHeight="331.0" prefWidth="588.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columns>
                         <TableColumn fx:id="name" prefWidth="262.0" text="Name" />
-                        <TableColumn fx:id="barcode" minWidth="0.0" prefWidth="145.0" text="Barcode" />
-                        <TableColumn fx:id="quantity" prefWidth="65.5" text="Quantity" />
-                        <TableColumn fx:id="profit" prefWidth="114.5" text="Profit" />
+                        <TableColumn fx:id="barcode" minWidth="0.0" prefWidth="413.0" text="Barcode" />
+                        <TableColumn fx:id="quantity" prefWidth="110.0" text="Quantity" />
+                        <TableColumn fx:id="profit" prefWidth="95.0" text="Profit" />
                      </columns>
                   </TableView>
                </children>

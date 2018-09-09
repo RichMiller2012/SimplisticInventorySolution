@@ -1,6 +1,13 @@
+/THERMAL Receipt Printer 4.X/
+/application/
+/bill_system/
 /controller/
-/print/
-/util/
-/service/
-/fxml/
+/dao/
 /entity/
+/jasperreports/
+/model/
+/print/
+/service/
+/util/
+/warningIcon.png
+/build.xml

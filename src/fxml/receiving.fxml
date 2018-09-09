@@ -6,31 +6,53 @@
 <?import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane accessibleRole="INCREMENT_BUTTON" accessibleText="1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1131.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReceivingController">
+<AnchorPane accessibleRole="INCREMENT_BUTTON" accessibleText="1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="1131.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReceivingController">
    <children>
-      <TextField fx:id="barcodeInput" layoutX="71.0" layoutY="192.0" onKeyPressed="#barcodeItemEntered" prefHeight="31.0" prefWidth="346.0" promptText="scan here" />
-      <Label layoutX="72.0" layoutY="172.0" text="Barcode: " />
-      <Spinner fx:id="quantityInput" accessibleText="1" editable="true" layoutX="459.0" layoutY="192.0" prefHeight="31.0" prefWidth="105.0">
+      <TextField fx:id="barcodeInput" layoutX="69.0" layoutY="169.0" onKeyPressed="#barcodeItemEntered" prefHeight="39.0" prefWidth="448.0" promptText="scan here" stylesheets="@styles.css">
+         <font>
+            <Font size="24.0" />
+         </font></TextField>
+      <Label layoutX="72.0" layoutY="143.0" text="Barcode: " />
+      <Spinner fx:id="quantityInput" accessibleText="1" editable="true" layoutX="597.0" layoutY="168.0" prefHeight="50.0" prefWidth="105.0">
 	      <valueFactory>
 	        <SpinnerValueFactory.IntegerSpinnerValueFactory max="9999" min="0" />
 	      </valueFactory>
       </Spinner>
-      <Label layoutX="459.0" layoutY="171.0" text="Qnty" />
+      <Label layoutX="597.0" layoutY="140.0" text="Qnty" />
       <Label layoutX="72.0" layoutY="349.0" text="Barcode" />
       <Label layoutX="72.0" layoutY="306.0" text="Item Name" />
       <Label layoutX="72.0" layoutY="394.0" text="Current Qnty" />
       <Label layoutX="72.0" layoutY="445.0" text="Retail Price" />
       <Label layoutX="72.0" layoutY="495.0" text="Wholesale Price" />
-      <TextField fx:id="barcodeInfo" layoutX="171.0" layoutY="335.0" prefHeight="31.0" prefWidth="350.0" />
-      <TextField fx:id="itemNameInfo" layoutX="171.0" layoutY="293.0" prefHeight="31.0" prefWidth="350.0" />
-      <TextField fx:id="currentQuantityInfo" layoutX="171.0" layoutY="383.0" prefHeight="31.0" prefWidth="100.0" />
-      <TextField fx:id="retailPriceInfo" layoutX="171.0" layoutY="431.0" prefHeight="31.0" prefWidth="100.0" />
-      <TextField fx:id="wholesalePriceInfo" layoutX="171.0" layoutY="484.0" prefHeight="31.0" prefWidth="100.0" />
-      <TextField fx:id="lowLimitInfo" layoutX="171.0" layoutY="533.0" prefHeight="31.0" prefWidth="100.0" />
-      <Label fx:id="itemNotFoundText" layoutX="72.0" layoutY="224.0" prefHeight="21.0" prefWidth="346.0" style="-fx-text-fill: red;" text="Item does not exist, fill out the form below to add it" />
+      <TextField fx:id="barcodeInfo" layoutX="377.0" layoutY="338.0" prefHeight="31.0" prefWidth="350.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="itemNameInfo" layoutX="378.0" layoutY="293.0" prefHeight="31.0" prefWidth="350.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="currentQuantityInfo" layoutX="377.0" layoutY="383.0" prefHeight="31.0" prefWidth="100.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="retailPriceInfo" layoutX="377.0" layoutY="431.0" prefHeight="31.0" prefWidth="100.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="wholesalePriceInfo" layoutX="377.0" layoutY="484.0" prefHeight="31.0" prefWidth="100.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="lowLimitInfo" layoutX="377.0" layoutY="533.0" prefHeight="31.0" prefWidth="100.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <Label fx:id="itemNotFoundText" contentDisplay="TOP" layoutX="72.0" layoutY="220.0" prefHeight="51.0" prefWidth="448.0" style="-fx-text-fill: red;" text="Item does not exist, fill out the form below to add it" wrapText="true" />
       <Button fx:id="itemAddButton" layoutX="869.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#addInventoryItem" prefHeight="58.0" prefWidth="88.0" text="Add" />
       <Button fx:id="itemCancelButton" layoutX="970.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#cancelBarcodeEntry" prefHeight="58.0" prefWidth="88.0" text="Cancel" />
-      <Label layoutX="72.0" layoutY="539.0" prefHeight="17.0" prefWidth="69.0" text="Low Limit" />
+      <Label layoutX="72.0" layoutY="539.0" prefHeight="25.0" prefWidth="168.0" text="Low Limit" />
    </children>
 </AnchorPane>

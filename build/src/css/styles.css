@@ -1,0 +1,138 @@
+.root {
+	-fx-background-color: #B2C5CB;
+}
+.pane {
+	-fx-background-color: #B2C5CB;
+
+}
+
+
+.text {
+    -fx-font-family: "Verdana";
+	-fx-font-size:20;
+}
+
+
+.button {
+    -fx-background-color:#545FFF;
+	-fx-text-fill: white;
+
+}
+
+.plus-button {
+	-fx-background-color:#02601e;
+}
+
+.minus-button {
+	-fx-background-color:#a8120c;
+}
+
+.warning-image {
+	-fx-max-height:50px;
+	-fx-max-width:50px;
+}
+
+#warningButton {
+	 -fx-graphic: url("warningIcon.png");
+}
+
+
+.button:hover {
+	-fx-opacity: 0.5;
+}
+.button:pressed {
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+	
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+	-fx-background-color: #B2C5CB;
+
+}
+
+.tab-content-area {
+				-fx-background-color: #B2C5CB;
+
+	-fx-border-width: 4px 0px 0px 0px;
+	-fx-border-color: black;
+}
+
+
+
+#receiving {
+			-fx-background-color: #B2C5CB;
+}
+
+.tab-pane {
+		-fx-background-color: #B2C5CB;
+    -fx-tab-max-width:200px;
+	-fx-tab-max-height:75px;
+	-fx-tab-min-width:200px;
+	-fx-tab-min-height:75px;
+}
+
+.tab:hover {
+	-fx-opacity: 0.5;
+}
+
+.tab .tab-label {
+	  -fx-text-fill: white;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #3c3c3c;
+}
+
+.tab-pane  .tab-header-area {
+	-fx-background-color: #B2C5CB;
+
+}
+	
+.tab {
+	-fx-background-color:#2A2F7F;
+	-fx-max-height:90px;
+}	
+
+.tree-table-view .column-header ,
+.tree-table-view .column-header .filler,
+.tree-table-view .column-header-background .filler{
+	
+    -fx-background-color: #2A2F7F;
+	 -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 2, 0.5, 1, 1);
+
+
+
+}
+
+.tree-table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.table-view .column-header ,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler{
+    -fx-background-color: #2A2F7F;
+	 -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 2, 0.5, 1, 1);
+	
+
+
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.spinner {
+		-fx-font-size:20;
+
+}
+
+
+

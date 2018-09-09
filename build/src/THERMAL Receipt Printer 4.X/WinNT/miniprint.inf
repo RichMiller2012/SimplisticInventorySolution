@@ -1,0 +1,72 @@
+[Version]
+Signature="$Windows NT$"
+Provider=%VENDOR%
+LayoutFile=layout.inf
+ClassGUID={4D36E979-E325-11CE-BFC1-08002BE10318}
+Class=Printer
+
+
+[Manufacturer]
+%VENDOR%=VENDOR
+
+[VENDOR]
+"VENDOR THERMAL PRINTER"   = THERMAL.DLL
+
+
+[THERMAL.DLL]
+AddReg = PP_AddReg
+CopyFiles=@THERMAL.dll
+DataSection=RASDD_DATA
+
+
+[RASDD]
+RASDD.DLL
+RASDDUI.DLL
+RASDDUI.HLP
+
+[RASDD_DATA]
+DriverFile=RASDD.DLL
+ConfigFile=RASDDUI.DLL
+HelpFile=RASDDUI.HLP
+DefaultDataType=RAW
+PrintProcessor=%PRINT_PROCESSOR%
+;LanguageMonitor=%PJL_MONITOR%
+
+
+
+[PP_AddReg]
+HKLM, SYSTEM\CurrentControlSet\Control\Print\Printers\VENDOR THERMAL PRINTER, Attributes, 0x00010001 , 0x00001800
+HKLM, SYSTEM\CurrentControlSet\Control\Print\Printers\VENDOR THERMAL PRINTER, Print Processor, 0x00000000 , "TPPROCES"
+HKCU, Printers\Settings\Wizard, Default Attributes, 0x00010001 , 0x00001800
+
+
+[OEM_PP]
+;genprint.dll,,,0x00000020         ; Copy only if new binary
+;Thermal.ini,,,0x00000020         ; Copy only if new binary
+
+[OEM_BIDIMON]
+;SWMON.DLL,,,0x00000020         ; Copy only if new binary
+
+
+;
+; Call SetupSetDirectoryId with 66000 to set the target directory at runtime
+; (depending on which environment drivers are getting installed)
+;
+
+[DestinationDirs]
+DefaultDestDir=66000
+;OEM_PP=66001
+;OEM_BIDIMON=66002
+
+
+; Control Flags
+;
+[ControlFlags]
+ExcludeFromSelect = 2369
+;
+; Localizable Strings
+;
+[Strings]
+VENDOR="VENDOR"
+PJL_MONITOR="SEWOO Language Monitor,SWMON.DLL"
+PRINT_PROCESSOR="TPPROCES, genprint.dll"
