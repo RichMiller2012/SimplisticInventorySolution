@@ -37,7 +37,7 @@
             </TableView>
             <AnchorPane prefHeight="206.0" prefWidth="1033.0">
                <children>
-                  <Label fx:id="posTotalLabel" layoutX="538.0" prefHeight="48.0" prefWidth="199.0" text="Total: 10000 PHP" textFill="#65d37b" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <Label fx:id="posTotalLabel" layoutX="538.0" prefHeight="48.0" prefWidth="199.0" text="Total: 10000 PHP" textFill="#02601e" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <font>
                         <Font size="24.0" />
                      </font>

@@ -34,6 +34,8 @@ public class MainController implements Initializable {
 	
 	@FXML PointOfSaleController pointOfSaleController;
 	
+	@FXML CalculatorController calculatorController;
+	
 	@FXML
 	private TabPane mainTabPane;
 	

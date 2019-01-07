@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -16,10 +17,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.Inventory;
 import service.InventoryService;
+import util.InventoryPrintUtility;
 
 public class InventoryController implements Initializable {
 	
 	private MainController main;
+	
+	private InventoryPrintUtility inventoryPrintUtility = new InventoryPrintUtility();
+	
+	@FXML
+	private Button inventoryPrint;
 	
 	@FXML
 	private TableView<Inventory> inventoryTable;
@@ -73,6 +80,12 @@ public class InventoryController implements Initializable {
 		
 		inventoryTable.getColumns().add(addWarningColumn());
 		
+	}
+	
+	public void printInventoryItems() {
+		if(items.isEmpty()) return;
+		System.out.println("printing inventory items");
+		inventoryPrintUtility.printInventoryReport(items);
 	}
 	
 	private TableColumn addWarningColumn() {

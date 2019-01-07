@@ -83,6 +83,12 @@ public class ReportsPrintUtility extends Application {
 		}
 		reportParameters.put("totalProfit", totalProfit);
 		
+		Double totalRetail = 0.0;
+		for(PDFSalesItem item : pdfItems) {
+			totalRetail += item.getRetailPrice();
+		}
+		reportParameters.put("totalRetail", totalRetail);
+		
 		return reportParameters;
 	}
 
@@ -103,6 +109,10 @@ public class ReportsPrintUtility extends Application {
 					soldItem.getWholesalePrice()) * soldItem.getQuantity();
 			
 			pdfItem.setItemProfit(profit);
+			
+			Double totalRetail = (soldItem.getRetailPrice() * soldItem.getQuantity());
+			
+			pdfItem.setTotalRetail(totalRetail);
 			
 			pdfItems.add(pdfItem);	
 		}

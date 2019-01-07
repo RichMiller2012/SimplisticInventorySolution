@@ -42,7 +42,7 @@ public class InventoryTO {
 	public InventoryTO(Inventory item) {
 		this.id = item.getId().getValue();
 		this.name = item.getName().getValue();
-		this.barcode = item.getName().getValue();
+		this.barcode = item.getBarcode().getValue();
 		this.quantity = item.getQuantity().getValue();
 		this.wholesalePrice = item.getWholesalePrice().getValue();
 		this.retailPrice = item.getRetailPrice().getValue();

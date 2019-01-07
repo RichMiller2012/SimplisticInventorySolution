@@ -16,8 +16,11 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -27,6 +30,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import model.Inventory;
 import service.InventoryService;
 import service.TransactionPrintUtility;
@@ -160,6 +164,8 @@ public class PointOfSaleController implements Initializable {
 	public void commitTransaction() {
 		posWarningLabel.setText("");
 		System.out.println("Beginning transaction commission");
+		
+		enableCalculator();
 		
 		TransactionsTO transaction = new TransactionsTO();
 		double transactionTotal = 0.00;
@@ -315,6 +321,26 @@ public class PointOfSaleController implements Initializable {
 		return addRemoveCol;
 	}
 	
+	public void enableCalculator() {
+		
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("../fxml/calculator.fxml"));
+			Parent root = loader.load();
+			CalculatorController controller = loader.getController();
+			controller.setChargeAmount(total);
+			
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add("css/styles.css");
+			Stage stage = new Stage();
+			stage.setTitle("Transaction Caclulator");
+			stage.setScene(scene);
+			stage.show();
+					
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
 
 	

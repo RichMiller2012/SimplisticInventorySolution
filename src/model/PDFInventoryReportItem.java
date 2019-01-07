@@ -1,15 +1,12 @@
 package model;
 
-public class PDFSalesItem {
+public class PDFInventoryReportItem {
 
 	private Integer quantity;
 	private String name;
 	private String barcode;
 	private Double wholesalePrice;
 	private Double retailPrice;
-	private Double totalRetail;//accumulates retail of all (retail * quantity)
-	private String sellDate;
-	private Double itemProfit;
 	
 	public Integer getQuantity() {
 		return quantity;
@@ -41,25 +38,4 @@ public class PDFSalesItem {
 	public void setRetailPrice(Double retailPrice) {
 		this.retailPrice = retailPrice;
 	}
-	public String getSellDate() {
-		return sellDate;
-	}
-	public void setSellDate(String sellDate) {
-		this.sellDate = sellDate;
-	}
-	public void setItemProfit(Double profit) {
-		this.itemProfit = profit;
-	}
-	public Double getItemProfit() {
-		return itemProfit;
-	}
-	public Double getTotalRetail() {
-		return totalRetail;
-	}
-	public void setTotalRetail(Double totalRetail) {
-		this.totalRetail = totalRetail;
-	}
-	
-	
-
 }

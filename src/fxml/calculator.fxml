@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CalculatorController">
+   <children>
+      <GridPane>
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="one" mnemonicParsing="false" onMouseClicked="#appendInput" prefHeight="110.0" prefWidth="100.0" style="-fx-border-color: black; -fx-font-size: 48;" text="1">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Button>
+            <Button fx:id="four" mnemonicParsing="false" onMouseClicked="#appendInput" prefHeight="110.0" prefWidth="100.0" style="-fx-border-color: black; -fx-font-size: 48;" text="4" GridPane.rowIndex="1">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Button>
+            <Button fx:id="seven" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#appendInput" prefHeight="110.0" prefWidth="100.0" style="-fx-border-color: black; -fx-font-size: 48;" text="7" GridPane.rowIndex="2">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Button>
+            <Button fx:id="back" mnemonicParsing="false" onMouseClicked="#appendInput" prefHeight="110.0" prefWidth="100.0" style="-fx-border-color: black; -fx-font-size: 48;" text="X" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Button>
+            <Button fx:id="two" mnemonicParsing="false" onMouseClicked="#appendInput" prefHeight="110.0" prefWidth="100.0" style="-fx-border-color: black; -fx-font-size: 48;" text="2" GridPane.columnIndex="1">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Button>
+            <Button fx:id="three" mnemonicParsing="false" onMouseClicked="#appendInput" prefHeight="110.0" prefWidth="100.0" style="-fx-border-color: black; -fx-font-size: 48;" text="3" GridPane.columnIndex="2">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Button>
+            <Button fx:id="five" mnemonicParsing="false" onMouseClicked="#appendInput" prefHeight="110.0" prefWidth="100.0" style="-fx-border-color: black; -fx-font-size: 48;" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Button>
+            <Button fx:id="six" mnemonicParsing="false" onMouseClicked="#appendInput" prefHeight="110.0" prefWidth="100.0" style="-fx-border-color: black; -fx-font-size: 48;" text="6" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Button>
+            <Button fx:id="eight" mnemonicParsing="false" onMouseClicked="#appendInput" prefHeight="110.0" prefWidth="100.0" style="-fx-border-color: black; -fx-font-size: 48;" text="8" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Button>
+            <Button fx:id="nine" mnemonicParsing="false" onMouseClicked="#appendInput" prefHeight="27.0" prefWidth="100.0" style="-fx-border-color: black; -fx-font-size: 48;" text="9" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Button>
+            <Button fx:id="zero" mnemonicParsing="false" onMouseClicked="#appendInput" prefHeight="110.0" prefWidth="100.0" style="-fx-border-color: black; -fx-font-size: 48;" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Button>
+            <Button fx:id="clear" mnemonicParsing="false" onMouseClicked="#appendInput" prefHeight="110.0" prefWidth="100.0" style="-fx-border-color: black; -fx-font-size: 48;" text="C" GridPane.rowIndex="3">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Button>
+         </children>
+      </GridPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="input" alignment="CENTER_RIGHT" layoutX="20.0" layoutY="97.0" prefHeight="35.0" prefWidth="176.0" style="-fx-font-size: 32;" text="Label" textAlignment="RIGHT" textFill="#f20808" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="charge" alignment="CENTER_RIGHT" layoutX="20.0" layoutY="138.0" prefHeight="35.0" prefWidth="176.0" style="-fx-font-size: 32;" text="Label" textAlignment="RIGHT" textFill="#1b0606" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Line endX="100.0" layoutX="100.0" layoutY="181.0" startX="-100.0" />
+            <Label fx:id="change" alignment="CENTER_RIGHT" layoutX="20.0" layoutY="179.0" prefHeight="35.0" prefWidth="176.0" style="-fx-font-size: 32;" text="Label" textAlignment="RIGHT" textFill="#04721a" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>
